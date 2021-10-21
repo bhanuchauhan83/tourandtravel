@@ -1,0 +1,168 @@
+﻿@using Nop.Core.Infrastructure
+@using Nop.Services.Blogs
+@using Nop.Core
+@{
+    var blogService = EngineContext.Current.Resolve<IBlogService>();
+    var storeContext = EngineContext.Current.Resolve<IStoreContext>();
+    var blogList = blogService.GetAllBlogPostsAsync(storeContext.GetCurrentStore().Id).Result;
+}
+
+
+
+@*About us section started*@
+<section class="about_us_column">
+    <div class="container">
+        <div class="about_us_content">
+            <h3 class="sub_heading">@T("Themes.TourAndTravels.HomePageSection.AboutUs.Title1")</h3>
+            <h1 class="heading">@T("Themes.TourAndTravels.HomePageSection.AboutUs.Title2")</h1>
+            <div class="text_content">
+                <p>@T("Themes.TourAndTravels.HomePageSection.AboutUs.Body")</p>
+            </div>
+            <a href="/" class="d_inline_block"><input type="button" class="btn btn_blue" value="@T("Themes.TourAndTravels.KnowMore")" /></a>
+        </div>
+
+        <div class="clearfix"></div>
+    </div>
+</section>
+@*About us section ended*@
+
+@*Our services section started*@
+
+<section class="our_services_col">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5">
+                <div>
+                    <h3 class="sub_heading">@T("Themes.TourAndTravels.HomePageSection.OurServices.Title1")</h3>
+                    <h1 class="heading">@T("Themes.TourAndTravels.HomePageSection.OurServices.Title2")</h1>
+                    <div class="text_content">
+                        <p>@T("Themes.TourAndTravels.HomePageSection.OurServices.Body")</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-7">
+                @await Component.InvokeAsync("HomepageCategories")               
+            </div>
+        </div>
+
+
+
+
+    </div>
+</section>
+
+@*Our services section ended*@
+
+
+@*Our recent journy section started*@
+
+@await Component.InvokeAsync("Widget", new { widgetZone = "RecentJourneySection" })
+@*Our recent journy section ended*@
+
+@*Best deal section started*@
+
+@await Component.InvokeAsync("Widget", new { widgetZone = "BestDealSection" })
+
+@*Best deal section ended*@
+
+
+@*Testimonials section started*@
+
+@await Component.InvokeAsync("Widget", new { widgetZone = "TestimonialsSection" })
+
+
+@*Testimonials section ended*@
+
+
+@*Blog posts section started*@
+@await Component.InvokeAsync("Widget", new { widgetZone = "BlogPostSection" })
+
+@*Blog posts section ended*@
+
+@*Reason to choose section started*@
+<section class="choose_us_col">
+    <div class="container">
+        <div>
+            <h3 class="sub_heading">@T("Themes.TourAndTravels.HomePageSection.ReasonToChoose.Title1")</h3>
+            <h1 class="heading">@T("Themes.TourAndTravels.HomePageSection.ReasonToChoose.Title2")</h1>
+
+            <div class="service_cards col-md-8">
+
+
+                <div class="card">
+                    <div class="card-body">
+                        <div class="img">
+                            <img src="../Themes/TourAndTravels/Content/images/icons/beach.svg" />
+                        </div>
+                        <h5>@T("Themes.TourAndTravels.HomePageSection.Cards.TopDestination.Title")</h5>
+                        <p>@T("Themes.TourAndTravels.HomePageSection.Cards.TopDestination.Body")</p>
+                    </div>
+                </div>
+
+
+                <div class="card">
+                    <div class="card-body">
+                        <div class="img">
+                            <img src="../Themes/TourAndTravels/Content/images/icons/wallet.svg" />
+                        </div>
+                        <h5>@T("Themes.TourAndTravels.HomePageSection.Cards.AffordablePrice.Title")</h5>
+                        <p>@T("Themes.TourAndTravels.HomePageSection.Cards.AffordablePrice.Body")</p>
+                    </div>
+                </div>
+
+
+                <div class="card">
+                    <div class="card-body">
+                        <div class="img">
+                            <img src="../Themes/TourAndTravels/Content/images/icons/calender.svg" />
+                        </div>
+                        <h5>@T("Themes.TourAndTravels.HomePageSection.Cards.TwentyFourSevenSupport.Title")</h5>
+                        <p>@T("Themes.TourAndTravels.HomePageSection.Cards.TwentyFourSevenSupport.Body")</p>
+                    </div>
+                </div>
+
+
+
+
+                <div class="card">
+                    <div class="card-body">
+                        <div class="img">
+                            <img src="../Themes/TourAndTravels/Content/images/icons/cancellation.svg" />
+                        </div>
+                        <h5>@T("Themes.TourAndTravels.HomePageSection.Cards.EasyCancellation.Title")</h5>
+                        <p>@T("Themes.TourAndTravels.HomePageSection.Cards.EasyCancellation.Body")</p>
+                    </div>
+                </div>
+
+
+                <div class="card">
+                    <div class="card-body">
+                        <div class="img">
+                            <img src="../Themes/TourAndTravels/Content/images/icons/expert.svg" />
+                        </div>
+                        <h5>@T("Themes.TourAndTravels.HomePageSection.Cards.ExpertAdvice.Title")</h5>
+                        <p>@T("Themes.TourAndTravels.HomePageSection.Cards.ExpertAdvice.Body")</p>
+                    </div>
+                </div>
+
+
+                <div class="card">
+                    <div class="card-body">
+                        <div class="img">
+                            <img src="../Themes/TourAndTravels/Content/images/icons/price-tag.svg" />
+                        </div>
+                        <h5>@T("Themes.TourAndTravels.HomePageSection.Cards.Bestdeals.Title")</h5>
+                        <p>@T("Themes.TourAndTravels.HomePageSection.Cards.Bestdeals.Body")</p>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+</section>
+
+@*Best deal section ended*@
+

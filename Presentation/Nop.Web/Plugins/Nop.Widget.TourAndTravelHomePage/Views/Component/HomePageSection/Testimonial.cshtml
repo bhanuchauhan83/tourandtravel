@@ -1,0 +1,63 @@
+﻿@model Testimonials
+
+<section class="our_testimonials_col">
+    <div class="container">
+        <div class="text-center">
+            <h3 class="sub_heading">@Model.SmallTitle</h3>
+            <h1 class="heading">@Model.LargeTitle</h1>
+            <div class="text_content">
+                <p>@Model.Description</p>
+            </div>
+        </div>
+        <div class="testimonials-section">
+            <div class="testimonial-card">
+                <div class="card-body">
+                    <div class="text">
+                        <p>@Model.Testimonial1_Description</p>
+                    </div>
+                    <div class="user-details">
+                        <div class="user-img">
+                            <img src="@Model.Testimonial1_UserImgURL" alt="@Model.Testimonial1_UserName" title="@Model.Testimonial1_UserName" />
+                        </div>
+                        <div class="user-info">
+                            <p>@Model.Testimonial1_UserName</p>
+                            <p>@Model.Testimonial1_UserCountry</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="card-body">
+                    <div class="text">
+                        <p>@Model.Testimonial2_Description</p>
+                    </div>
+                    <div class="user-details">
+                        <div class="user-img">
+                            <img src="@Model.Testimonial2_UserImgURL" alt="@Model.Testimonial2_UserName" title="@Model.Testimonial2_UserName" />
+                        </div>
+                        <div class="user-info">
+                            <p>@Model.Testimonial2_UserName</p>
+                            <p>@Model.Testimonial2_UserCountry</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="card-body">
+                    <div class="text">
+                        <p>@Model.Testimonial3_Description</p>
+                    </div>
+                    <div class="user-details">
+                        <div class="user-img">
+                            <img src="@Model.Testimonial3_UserImgURL" alt="@Model.Testimonial3_UserName" title="@Model.Testimonial3_UserName" />
+                        </div>
+                        <div class="user-info">
+                            <p>@Model.Testimonial3_UserName</p>
+                            <p>@Model.Testimonial3_UserCountry</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,56 @@
+﻿<!--model SearchForTripModel
+
+<form asp-controller="Trip" asp-action="SearchTrip" id="searchform" method="post">
+    <section>
+        <div class="banner_form">
+            <section class="Search_form">
+                <div class="form_heading">
+                    <h3>@T("Nop.Widget.TourAndTravelHomePage.SearchForYourTrip")</h3>
+                </div>
+
+                <div class="Bannerform_outer">
+                    <div class="textbox">
+                        <input asp-for="FromCity" class="form-control" placeholder="From" />
+                        <span asp-validation-for="FromCity"></span>
+                    </div>
+                    <div class="textbox">
+                        <input asp-for="ToCity" class="form-control" placeholder="To" />
+                        <span asp-validation-for="ToCity"></span>
+                    </div>
+                    <div class="textbox">
+                        <input asp-for="NumberOfPersons" class="form-control" placeholder="Persons" />
+                        <span asp-validation-for="NumberOfPersons"></span>
+                    </div>
+                    <div class="textbox">
+                        <input asp-for="TravelDate" class="form-control" placeholder="Travel Date" />
+                        <span asp-validation-for="TravelDate"></span>
+                    </div>
+                    <div class="text-center seach_btn">
+                        <input type="submit" id="searchForTrip" class="btn btn_blue" value="@T("Nop.Widget.TourAndTravelHomePage.Search")" />
+                    </div>
+                </div>
+            </section>
+        </div>
+    </section>
+</form>
+<script>-->
+
+    @*$('#searchform').submit(function (e) {
+        e.preventDefault();
+         var from = $('#@Html.IdFor(x=>x.FromCity)').val();
+        var to = $('#@Html.IdFor(x=>x.ToCity)').val();
+        var travelDate = $('#@Html.IdFor(x=>x.TravelDate)').val();
+        var numberOfPersons = $('#@Html.IdFor(x=>x.NumberOfPersons)').val();
+        window.location.href="/Trip?from=" + from + "&to=" + to + "&travelDate=" + travelDate + "&numberOfPersons=" + numberOfPersons + "";
+    })*@
+
+    @*$('#searchform').on('submit', function (e) {
+         var from = $('#' +@Html.IdFor(x=>x.FromCity)+'').val();
+        var to = $('#' +@Html.IdFor(x=>x.ToCity)+'').val();
+        var travelDate = $('#' +@Html.IdFor(x=>x.TravelDate)+'').val();
+        var numberOfPersons = $('#' +@Html.IdFor(x=>x.NumberOfPersons)+'').val();
+        e.preventDefault();
+        console.log("/Trip?from=" + from + "&to=" + to + "&travelDate=" + travelDate + "&numberOfPersons=" + numberOfPersons + "");
+
+    })*@
+<!--</script>-->

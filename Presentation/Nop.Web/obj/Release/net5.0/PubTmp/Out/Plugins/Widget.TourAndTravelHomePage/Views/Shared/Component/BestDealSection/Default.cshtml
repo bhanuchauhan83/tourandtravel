@@ -1,0 +1,25 @@
+﻿@model IList<CategoryModel>
+@using Nop.Web.Areas.Admin.Models.Catalog
+@using Nop.Services.Media
+@{
+    var _pictureService = Nop.Core.Infrastructure.EngineContext.Current.Resolve<IPictureService>();
+
+}
+<div class="deals_offer_section">
+
+    @foreach (var categoryModel in Model)
+    {
+
+      
+        var ImagUrl = _pictureService.GetPictureUrlAsync(categoryModel.PictureId).Result;
+
+        <div class="deals">
+            <img src="@ImagUrl" title="@categoryModel.Name" alt="@categoryModel.Name" />
+            <div class="deal_info">
+                <h3>@categoryModel.Name</h3>
+                <span>@categoryModel.Description</span>
+            </div>
+        </div>
+    }
+
+</div>

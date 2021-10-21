@@ -1,0 +1,35 @@
+﻿@model RecentJourney
+
+
+<section class="recent_journey">
+    <div class="container">
+        <section class="text-center">
+            <h3 class="sub_heading">@Model.SmallTitle</h3>
+            <h1 class="heading">@Model.LargeTitle</h1>
+            <div class="text_content">
+                <p>@Model.Description</p>
+            </div>
+        </section>
+        <div class="video-section">
+            <div class="video-section-body">
+                <div class="video-card">
+                    <iframe class="journey_vids" src="@Model.Video1URL"></iframe>
+                </div>
+                <div class="video-card">
+                    <iframe class="journey_vids" src="@Model.Video2URL"></iframe>
+                </div>
+                <div class="video-card">
+                    <iframe class="journey_vids" src="@Model.Video3URL"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@if (!string.IsNullOrEmpty(Model.BackgroundImageURL))
+{
+    <style>
+        .recent_journey {
+            background:url(@Model.BackgroundImageURL) no-repeat center cover !important;
+        }
+    </style>
+}

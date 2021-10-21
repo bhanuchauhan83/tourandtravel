@@ -1,0 +1,41 @@
+﻿@model BestDealModel
+
+@{
+    var genericAttributeService = Nop.Core.Infrastructure.EngineContext.Current.Resolve<IGenericAttributeService>();
+    var workContext = Nop.Core.Infrastructure.EngineContext.Current.Resolve<IWorkContext>();
+    const string hideBestDealAttributeName = "CategoryPage.HideBestDealBlock";
+    var hideBestDealBlock = await genericAttributeService.GetAttributeAsync<bool>(await workContext.GetCurrentCustomerAsync(), hideBestDealAttributeName);
+
+}
+<nop-card asp-name="bestdeal-category" asp-icon="fas fa-th-list" asp-title="@T("Admin.Catalog.Categories.BestDeal")" asp-hide-block-attribute-name="@hideBestDealAttributeName" asp-hide="@hideBestDealBlock" asp-advanced="true">
+    <div class="form-group row">
+        <div class="col-md-3">       
+            <nop-label asp-for="IsBestDeal" />
+        </div>
+        <div class="col-md-9">
+            <nop-editor asp-for="IsBestDeal" />
+            <span asp-validation-for="IsBestDeal"></span>
+        </div>
+    </div>
+</nop-card>
+<script>
+    var form = $('#bestdeal-category').parents('form').first();
+    if (form) {
+        $(form).submit(function () {
+               $.ajax({
+                cache: false,
+                url: '@Url.Action("Save", "BestDeal")',
+                type: "POST",
+                data: $(form).serialize(),
+                success: function (res) {
+
+                },
+                complete: function () {
+                },
+                error: function () {
+                    //e.preventDefault();
+                }
+            });
+        })
+    }
+</script>

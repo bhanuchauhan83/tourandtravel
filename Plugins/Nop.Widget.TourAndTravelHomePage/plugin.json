@@ -1,0 +1,11 @@
+﻿{
+  "Group": "Widgets",
+  "FriendlyName": "TourAndTravel Theme HomePage",
+  "SystemName": "Widget.TourAndTravelHomePage",
+  "Version": "1.41",
+  "SupportedVersions": [ "4.40" ],
+  "Author": "nopCommerce team",
+  "DisplayOrder": 1,
+  "FileName": "Nop.Widget.TourAndTravelHomePage.dll",
+  "Description": "This plugin allows you to change the contents of main page slider"
+}

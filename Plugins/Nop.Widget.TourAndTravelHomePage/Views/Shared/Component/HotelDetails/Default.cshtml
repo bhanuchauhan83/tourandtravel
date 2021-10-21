@@ -1,0 +1,83 @@
+﻿@model Package
+
+
+<section class="column_card">
+    <div class="subHeading column_header">
+        <h3>hotel details</h3>
+    </div>
+
+    <section class="itineary_cotent">
+        <div class="HotelName">
+            <div>
+                <h6>@Model.HotelDetails.Name</h6>
+                <small>@Model.HotelDetails.Address1</small>
+                <b>@Model.HotelDetails.Address2</b>
+            </div>
+            @if (!string.IsNullOrEmpty(Model.HotelDetails.RoomType))
+            {
+                <div>
+                    <b>Room:</b>
+                    <span>@Model.HotelDetails.RoomType</span>
+                </div>
+            }
+            @*<div>
+                ratings
+            </div>*@
+        </div>
+
+        @Html.Raw(Model.HotelDetails.ServiceDescription)
+
+        @*<div class="hotelIncludes">
+                <div>
+                    <h6>inclusions</h6>
+                    <ul>
+                        <li>
+                            <p>accomodation as per itinerary</p>
+                        </li>
+                        <li>
+                            <p>meal as per hotel plan</p>
+                        </li>
+                        <li>
+                            <p>deasl on spa and wellness packages</p>
+                        </li>
+                        <li>
+                            <p>complimentary room upgrades</p>
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h6>supplement cost</h6>
+                    <ul>
+                        <li>
+                            <p>supplement cost for sedan - $100</p>
+                        </li>
+                        <li>
+                            <p>there will be an supplement cost for extra night</p>
+                        </li>
+                        <li>
+                            <p>supplement cost for photoshoot</p>
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h6>notes</h6>
+                    <ul>
+                        <li>
+                            <p>The distance mentioned in the itinerary is correct, however, travel time depends on traffic and condition of the road</p>
+                        </li>
+                        <li>
+                            <p>Entry fees, wherever applicable, shall have to be paid for directly at the venue</p>
+                        </li>
+                        <li>
+                            <p>Toll charges and Road taxes are not included in the cost of the package</p>
+                        </li>
+                        <li>
+                            <p>If you plan to travel with an infant, then it is advised to carry an infant car seats</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>*@
+    </section>
+</section>

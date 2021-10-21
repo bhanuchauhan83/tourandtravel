@@ -1,0 +1,125 @@
+﻿@model TravellerInfo
+
+@{
+    var genericAttributeService = Nop.Core.Infrastructure.EngineContext.Current.Resolve<IGenericAttributeService>();
+    var workContext = Nop.Core.Infrastructure.EngineContext.Current.Resolve<IWorkContext>();
+
+    const string hideInfoBlockAttributeName = "OrderPage.HideInfoBlock";
+    var hideInfoBlock = await genericAttributeService.GetAttributeAsync<bool>(await workContext.GetCurrentCustomerAsync(), hideInfoBlockAttributeName);
+
+}
+<nop-card asp-name="traveller-info" asp-icon="fas fa-info" asp-title="@T("Admin.Orders.TravellerInfo")" asp-hide-block-attribute-name="@hideInfoBlockAttributeName" asp-hide="@hideInfoBlock" asp-advanced="false">
+    <div class="card-body">
+        <div class="form-group row">
+            <div class="col-md-3">
+                <label>@T("TravellingDate")</label>
+            </div>
+            <div class="col-md-9">
+                <span>@Model.TravellingDate</span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-3">
+                <label>@T("TravellingFrom")</label>
+            </div>
+            <div class="col-md-9">
+                <span>@Model.TravellingFrom</span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-3">
+                <label>@T("TravellingTo")</label>
+            </div>
+            <div class="col-md-9">
+                <span>@Model.TravellingTo</span>
+            </div>
+        </div> <div class="form-group row">
+            <div class="col-md-3">
+                <label>@T("Adults")</label>
+            </div>
+            <div class="col-md-9">
+                <span>@Model.Adults</span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-3">
+                <label>@T("Children")</label>
+            </div>
+            <div class="col-md-9">
+                <span>@Model.Children</span>
+            </div>
+        </div>
+        @{
+            int adultCounter = 0;
+        }
+        @foreach (var detail in Model.AdultsInfo)
+        {
+            {
+                adultCounter++;
+            }
+            <h3>Adult @adultCounter Info</h3>
+
+            <div class="form-group row">
+                <div class="col-md-3">
+                    <label>@T("FirstName")</label>
+                </div>
+                <div class="col-md-9">
+                    <span>@detail.FirstName</span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-3">
+                    <label>@T("LastName")</label>
+                </div>
+                <div class="col-md-9">
+                    <span>@detail.LastName</span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-3">
+                    <label>@T("Age")</label>
+                </div>
+                <div class="col-md-9">
+                    <span>@detail.Age</span>
+                </div>
+            </div>
+        }
+
+
+        @if (Model.Children > 0)
+        {
+            int childCounter = 0;
+            <hr />
+            @foreach (var detail in Model.AdultsInfo)
+            {
+                childCounter++;
+                <h3>Child @adultCounter Info</h3>
+                <div class="form-group row">
+                    <div class="col-md-3">
+                        <label>@T("FirstName")</label>
+                    </div>
+                    <div class="col-md-9">
+                        <span>@detail.FirstName</span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-3">
+                        <label>@T("LastName")</label>
+                    </div>
+                    <div class="col-md-9">
+                        <span>@detail.LastName</span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-3">
+                        <label>@T("Age")</label>
+                    </div>
+                    <div class="col-md-9">
+                        <span>@detail.Age</span>
+                    </div>
+                </div>
+            }
+        }
+
+    </div>
+</nop-card>

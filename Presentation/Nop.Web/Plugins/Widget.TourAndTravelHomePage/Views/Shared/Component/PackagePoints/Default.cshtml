@@ -1,0 +1,49 @@
+﻿@model TravelPackageModel
+<div class="package_points">
+    <ul>
+        @if (Model.Packages.IncludeHotel)
+        {
+            <li>
+                <i class="fas fa-hotel"></i>
+                <label>@T("Hotel")</label>
+            </li>
+        }
+        @if (Model.Packages.IncludeFlights)
+        {
+            <li>
+                <i class="fas fa-plane-departure"></i>
+                <label>@T("Flight")</label>
+            </li>
+        }
+        @if (Model.Packages.IncludeCabs)
+        {
+            <li>
+                <i class="fas fa-car-side"></i>
+                <label>@T("Cab")</label>
+            </li>
+        }
+        @if (Model.Packages.IncludeBus)
+        {
+            <li>
+                <i class="fas fa-bus-alt"></i>
+                <label>@T("Bus")</label>
+            </li>
+        }
+        @if (Model.Packages.IncludeCityTour)
+        {
+
+            <li>
+                <i class="fas fa-tram"></i>
+                <label>@T("Tour")</label>
+            </li>
+        }
+        @if (Model.Packages.IncludeTrain)
+        {
+
+            <li>
+                <i class="fas fa-train"></i>
+                <label>@T("Train")</label>
+            </li>
+        }       
+    </ul>
+</div>

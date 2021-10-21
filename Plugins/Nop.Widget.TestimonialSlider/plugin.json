@@ -1,0 +1,11 @@
+﻿{
+  "Group": "Widgets",
+  "FriendlyName": "Testimonial Slider",
+  "SystemName": "TestimonialSlider",
+  "Version": "1.41",
+  "SupportedVersions": [ "4.40" ],
+  "Author": "Confianza IT Solutions",
+  "DisplayOrder": 1,
+  "FileName": "Nop.Widget.TestimonialSlider.dll",
+  "Description": "This plugin allows you to change the contents of main page slider"
+}

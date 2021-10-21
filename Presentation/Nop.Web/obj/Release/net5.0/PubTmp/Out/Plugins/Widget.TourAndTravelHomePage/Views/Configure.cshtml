@@ -1,0 +1,55 @@
+﻿@model ConfigurationModel
+@using Nop.Services.Common
+@using Nop.Core
+@{
+    Layout = "_AdminLayout";
+    var genericAttributeService = Nop.Core.Infrastructure.EngineContext.Current.Resolve<IGenericAttributeService>();
+    var workContext = Nop.Core.Infrastructure.EngineContext.Current.Resolve<IWorkContext>();
+
+    var showTour = ViewBag.ShowTour ?? false;
+
+    const string hideRecentJourneyBlockAttributeName = TourAndTravelDefault.DefaultStringResource + ".RecentJourneyBlock";
+    var hideRecentJourneyBlock = showTour ? false : await genericAttributeService.GetAttributeAsync<bool>(await workContext.GetCurrentCustomerAsync(), hideRecentJourneyBlockAttributeName);
+
+    const string hideBestDealsBlockAttributeName = TourAndTravelDefault.DefaultStringResource + ".BestDealsBlock";
+    var HideBestDealsBlock = showTour ? false : await genericAttributeService.GetAttributeAsync<bool>(await workContext.GetCurrentCustomerAsync(), hideBestDealsBlockAttributeName);
+
+    const string hideTestimonialsBlockAttributeName = TourAndTravelDefault.DefaultStringResource + ".Testimonials";
+    var HideTestimonialsBlock = showTour ? false : await genericAttributeService.GetAttributeAsync<bool>(await workContext.GetCurrentCustomerAsync(), hideTestimonialsBlockAttributeName);
+    
+    const string hideBlogPostsBlockAttributeName = TourAndTravelDefault.DefaultStringResource + ".Testimonials";
+    var HideBlogPostsBlock = showTour ? false : await genericAttributeService.GetAttributeAsync<bool>(await workContext.GetCurrentCustomerAsync(), hideBlogPostsBlockAttributeName);
+
+}
+<form asp-controller="ManageHomePage" asp-action="Configure" method="post">
+    <div class="content-header clearfix">
+        <div class="float-right">
+            <button type="submit" name="save" class="btn btn-primary">
+                <i class="far fa-save"></i>
+                @T("Admin.Common.Save")
+            </button>
+        </div>
+    </div>
+    <div asp-validation-summary="All"></div>   
+    <section class="content">
+        <div class="container-fluid">
+            <div class="form-horizontal">
+                <section class="content">
+                    <div class="container-fluid">
+                        <div class="form-horizontal">
+                            <nop-cards id="menu-cards">
+                                <nop-card asp-name="journey-info" asp-icon="fas fa-info" asp-title="@T(TourAndTravelDefault.DefaultStringResource+".RecentJourneyBlock")" asp-hide-block-attribute-name="@hideRecentJourneyBlockAttributeName" asp-hide="@hideRecentJourneyBlock" asp-advanced="false">@await Html.PartialAsync("~/Plugins/Widget.TourAndTravelHomePage/Views/_JourneyBlock.cshtml", Model)</nop-card>
+                                <nop-card asp-name="best-deals" asp-icon="fas fa-info" asp-title="@T(TourAndTravelDefault.DefaultStringResource+".BestDealsBlock")" asp-hide-block-attribute-name="@hideBestDealsBlockAttributeName" asp-hide="@HideBestDealsBlock" asp-advanced="false">@await Html.PartialAsync("~/Plugins/Widget.TourAndTravelHomePage/Views/_BestDealsBlock.cshtml", Model)</nop-card>
+                                <nop-card asp-name="testimonials" asp-icon="fas fa-info" asp-title="@T(TourAndTravelDefault.DefaultStringResource+".Testimonials")" asp-hide-block-attribute-name="@hideTestimonialsBlockAttributeName" asp-hide="@HideTestimonialsBlock" asp-advanced="false">@await Html.PartialAsync("~/Plugins/Widget.TourAndTravelHomePage/Views/_TestimonialsBlock.cshtml", Model)</nop-card>
+                                <nop-card asp-name="blog-post" asp-icon="fas fa-info" asp-title="@T(TourAndTravelDefault.DefaultStringResource+".BlogPosts")" asp-hide-block-attribute-name="@hideBlogPostsBlockAttributeName" asp-hide="@HideBlogPostsBlock" asp-advanced="false">@await Html.PartialAsync("~/Plugins/Widget.TourAndTravelHomePage/Views/_BlogPostBlock.cshtml", Model)</nop-card>
+                            </nop-cards>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </section>
+
+</form>
+

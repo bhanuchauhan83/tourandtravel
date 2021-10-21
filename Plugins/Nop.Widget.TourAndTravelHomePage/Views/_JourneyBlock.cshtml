@@ -1,0 +1,147 @@
+﻿@model ConfigurationModel
+<div class="card-body">
+    <div class="form-group row">
+        <div class="col-md-3">
+            <nop-override-store-checkbox asp-for="RecentJourney.SmallTitle_OverrideForStore" asp-input="RecentJourney.SmallTitle" asp-store-scope="@Model.RecentJourney.ActiveStoreScopeConfiguration" />
+            <nop-label asp-for="RecentJourney.SmallTitle" />
+        </div>
+        <div class="col-md-9">
+            <nop-editor asp-for="RecentJourney.SmallTitle" />
+            <span asp-validation-for="RecentJourney.SmallTitle"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            <nop-override-store-checkbox asp-for="RecentJourney.LargeTitle_OverrideForStore" asp-input="RecentJourney.LargeTitle" asp-store-scope="@Model.RecentJourney.ActiveStoreScopeConfiguration" />
+            <nop-label asp-for="RecentJourney.LargeTitle" />
+        </div>
+        <div class="col-md-9">
+            <nop-editor asp-for="RecentJourney.LargeTitle" />
+            <span asp-validation-for="RecentJourney.LargeTitle"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            <nop-override-store-checkbox asp-for="RecentJourney.LargeTitle_OverrideForStore" asp-input="RecentJourney.Description" asp-store-scope="@Model.RecentJourney.ActiveStoreScopeConfiguration" />
+            <nop-label asp-for="RecentJourney.Description" />
+        </div>
+        <div class="col-md-9">
+            <nop-textarea asp-for="RecentJourney.Description" />
+            <span asp-validation-for="RecentJourney.Description"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            <nop-override-store-checkbox asp-for="RecentJourney.BackgroundImageId_OverrideForStore" asp-input="RecentJourney.BackgroundImageId" asp-store-scope="@Model.RecentJourney.ActiveStoreScopeConfiguration" />
+            <nop-label asp-for="RecentJourney.BackgroundImageId" />
+        </div>
+        <div class="col-md-9">
+            <nop-editor asp-for="RecentJourney.BackgroundImageId" />
+            <span asp-validation-for="RecentJourney.BackgroundImageId"></span>
+        </div>
+    </div>
+    <hr />
+    <div class="form-group row">
+        @await Html.PartialAsync("Table", new DataTablesModel
+   {
+       Name = "videos-grid",
+       UrlRead = new DataUrl("RecentJourneyVideos", "ManageHomePage", null),
+       UrlUpdate = new DataUrl("InsertOrUpdateRecentJourneyVideos", "ManageHomePage", null),
+       UrlDelete = new DataUrl("DeleteRecentJourneyVideo", "ManageHomePage", null),
+       Length = Model.SearchModel.PageSize,
+       LengthMenu = Model.SearchModel.AvailablePageSizes,
+       ColumnCollection = new List<ColumnProperty>
+                                                  {
+
+                                                      new ColumnProperty(nameof(RecentJourneyVideosModel.VideoURL))
+                                                      {
+                                                          Title = T(TourAndTravelDefault.DefaultStringResource + ".Field.VideoURL").Text,
+                                                          Width = "100",
+                                                           Editable = true,
+                        EditType = EditType.String
+                                                      },
+                    new ColumnProperty(nameof(RecentJourneyVideosModel.Published))
+                                                      {
+                                                          Title = T(TourAndTravelDefault.DefaultStringResource + ".Field.Published").Text,
+                                                          Width = "100"  ,
+                                                          ClassName = NopColumnClassDefaults.CenterAll,
+                                          Render = new RenderBoolean(),
+                                           Editable = true,
+                        EditType = EditType.Checkbox
+                                                      },
+                                                      new ColumnProperty(nameof(RecentJourneyVideosModel.Id))
+                    {
+                        Title = T("Admin.Common.Edit").Text,
+                        Width = "200",
+                        ClassName =  NopColumnClassDefaults.Button,
+                        Render = new RenderButtonsInlineEdit()
+                    },
+                    new ColumnProperty(nameof(RecentJourneyVideosModel.Id))
+                    {
+                        Title = T("Admin.Common.Delete").Text,
+                        Width = "100",
+                        Render = new RenderButtonRemove(T("Admin.Common.Delete").Text),
+                        ClassName = NopColumnClassDefaults.Button
+                    }
+                                                  }
+   })
+
+        <div class="col-md-3">
+            <nop-label asp-for="RecentJourney.JourneyVideosModel.VideoURL" />
+        </div>
+        <div class="col-md-9">
+            <nop-editor asp-for="RecentJourney.JourneyVideosModel.VideoURL" />
+            <span asp-validation-for="RecentJourney.JourneyVideosModel.VideoURL"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            <nop-label asp-for="RecentJourney.JourneyVideosModel.Published" />
+        </div>
+        <div class="col-md-9">
+            <nop-editor asp-for="RecentJourney.JourneyVideosModel.Published" />
+            <span asp-validation-for="RecentJourney.JourneyVideosModel.Published"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-9 offset-md-3">
+            <button type="button" id="addVideo" class="btn btn-primary">@T("Admin.Catalog.Products.Pictures.AddButton")</button>
+        </div>
+    </div>
+</div>
+
+<script>
+       $(document).ready(function() {
+           $('#addVideo').click(function() {
+               var VideoURL = $("#@Html.IdFor(model => model.RecentJourney.JourneyVideosModel.VideoURL)").val();
+               var Published = $("#@Html.IdFor(model => model.RecentJourney.JourneyVideosModel.Published)").is('checked');
+
+               if (VideoURL.trim()=='') {
+                   alert('Please Enter Video URL');
+               }
+               $('#addVideo').attr('disabled', true);
+
+                            var postData = {
+                                VideoURL: VideoURL,
+                                Published: Published
+                            };
+                            addAntiForgeryToken(postData);
+
+                            $.ajax({
+                                cache: false,
+                                type: "POST",
+                                url: "@(Url.Action("InsertOrUpdateRecentJourneyVideos", "ManageHomePage"))",
+                                data: postData,
+                                success: function (data, textStatus, jqXHR) {
+                                    updateTable('#videos-grid');
+                                },
+                                error: function (jqXHR, textStatus, errorThrown) {
+                                    console.log(errorThrown);
+                                },
+                                complete: function (jqXHR, textStatus) {
+                                    $('#addVideo').attr('disabled', false);
+                                }
+                            });
+                        });
+                    });
+</script>

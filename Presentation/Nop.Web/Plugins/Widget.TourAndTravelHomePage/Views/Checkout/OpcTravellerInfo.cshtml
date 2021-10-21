@@ -1,0 +1,15 @@
+﻿@*@model TravellerInfo
+<div class="checkout-data">
+    @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.OpCheckoutBillingAddressTop })
+    <div class="edit-address total_traveller">
+        <div class="inputs">
+            <div class="formField">
+                <label asp-for="NumberOfPersons" asp-postfix=":"></label>
+                <nop-required />
+            </div>
+            <input asp-for="NumberOfPersons" min="1" />
+            <span asp-validation-for="NumberOfPersons"></span>
+        </div>
+    </div>
+    @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.OpCheckoutBillingAddressBottom })
+</div>*@

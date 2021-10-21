@@ -1,0 +1,167 @@
+﻿@model ConfigurationModel
+<div class="card-body">
+    <div class="form-group row">
+        <div class="col-md-3">
+            <nop-override-store-checkbox asp-for="Testimonial.SmallTitle_OverrideForStore" asp-input="Testimonial.SmallTitle" asp-store-scope="@Model.Testimonial.ActiveStoreScopeConfiguration" />
+            <nop-label asp-for="Testimonial.SmallTitle" />
+        </div>
+        <div class="col-md-9">
+            <nop-editor asp-for="Testimonial.SmallTitle" />
+            <span asp-validation-for="Testimonial.SmallTitle"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            <nop-override-store-checkbox asp-for="Testimonial.LargeTitle_OverrideForStore" asp-input="Testimonial.LargeTitle" asp-store-scope="@Model.Testimonial.ActiveStoreScopeConfiguration" />
+            <nop-label asp-for="Testimonial.LargeTitle" />
+        </div>
+        <div class="col-md-9">
+            <nop-editor asp-for="Testimonial.LargeTitle" />
+            <span asp-validation-for="Testimonial.LargeTitle"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            <nop-override-store-checkbox asp-for="Testimonial.LargeTitle_OverrideForStore" asp-input="Testimonial.Description" asp-store-scope="@Model.Testimonial.ActiveStoreScopeConfiguration" />
+            <nop-label asp-for="Testimonial.Description" />
+        </div>
+        <div class="col-md-9">
+            <nop-textarea asp-for="Testimonial.Description" />
+            <span asp-validation-for="Testimonial.Description"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            <nop-override-store-checkbox asp-for="Testimonial.BackgroundImageId_OverrideForStore" asp-input="Testimonial.BackgroundImageId" asp-store-scope="@Model.Testimonial.ActiveStoreScopeConfiguration" />
+            <nop-label asp-for="Testimonial.BackgroundImageId" />
+        </div>
+        <div class="col-md-9">
+            <nop-editor asp-for="Testimonial.BackgroundImageId" />
+            <span asp-validation-for="Testimonial.BackgroundImageId"></span>
+        </div>
+    </div>
+    <hr />
+    @*<div class="form-group row">
+        <div class="col-md-3">
+            <nop-override-store-checkbox asp-for="Testimonial.Testimonial1_Description_OverrideForStore" asp-input="Testimonial.Testimonial1_Description" asp-store-scope="@Model.Testimonial.ActiveStoreScopeConfiguration" />
+            <nop-label asp-for="Testimonial.Testimonial1_Description" />
+        </div>
+        <div class="col-md-9">
+            <nop-textarea asp-for="Testimonial.Testimonial1_Description" />
+            <span asp-validation-for="Testimonial.Testimonial1_Description"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            <nop-override-store-checkbox asp-for="Testimonial.Testimonial1_UserName_OverrideForStore" asp-input="Testimonial.Testimonial1_UserName" asp-store-scope="@Model.Testimonial.ActiveStoreScopeConfiguration" />
+            <nop-label asp-for="Testimonial.Testimonial1_UserName" />
+        </div>
+        <div class="col-md-9">
+            <nop-editor asp-for="Testimonial.Testimonial1_UserName" />
+            <span asp-validation-for="Testimonial.Testimonial1_UserName"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            <nop-override-store-checkbox asp-for="Testimonial.Testimonial1_UserCountry_OverrideForStore" asp-input="Testimonial.Testimonial1_UserCountry" asp-store-scope="@Model.Testimonial.ActiveStoreScopeConfiguration" />
+            <nop-label asp-for="Testimonial.Testimonial1_UserCountry" />
+        </div>
+        <div class="col-md-9">
+            <nop-editor asp-for="Testimonial.Testimonial1_UserCountry" />
+            <span asp-validation-for="Testimonial.Testimonial1_UserCountry"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            <nop-override-store-checkbox asp-for="Testimonial.Testimonial1_UserImg_OverrideForStore" asp-input="Testimonial.Testimonial1_UserImg" asp-store-scope="@Model.Testimonial.ActiveStoreScopeConfiguration" />
+            <nop-label asp-for="Testimonial.Testimonial1_UserImg" />
+        </div>
+        <div class="col-md-9">
+            <nop-editor asp-for="Testimonial.Testimonial1_UserImg" />
+            <span asp-validation-for="Testimonial.Testimonial1_UserImg"></span>
+        </div>
+    </div>
+    <hr />
+    <div class="form-group row">
+        <div class="col-md-3">
+            <nop-override-store-checkbox asp-for="Testimonial.Testimonial2_Description_OverrideForStore" asp-input="Testimonial.Testimonial2_Description" asp-store-scope="@Model.Testimonial.ActiveStoreScopeConfiguration" />
+            <nop-label asp-for="Testimonial.Testimonial2_Description" />
+        </div>
+        <div class="col-md-9">
+            <nop-textarea asp-for="Testimonial.Testimonial2_Description" />
+            <span asp-validation-for="Testimonial.Testimonial2_Description"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            <nop-override-store-checkbox asp-for="Testimonial.Testimonial2_UserName_OverrideForStore" asp-input="Testimonial.Testimonial2_UserName" asp-store-scope="@Model.Testimonial.ActiveStoreScopeConfiguration" />
+            <nop-label asp-for="Testimonial.Testimonial2_UserName" />
+        </div>
+        <div class="col-md-9">
+            <nop-editor asp-for="Testimonial.Testimonial2_UserName" />
+            <span asp-validation-for="Testimonial.Testimonial2_UserName"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            <nop-override-store-checkbox asp-for="Testimonial.Testimonial2_UserCountry_OverrideForStore" asp-input="Testimonial.Testimonial2_UserCountry" asp-store-scope="@Model.Testimonial.ActiveStoreScopeConfiguration" />
+            <nop-label asp-for="Testimonial.Testimonial2_UserCountry" />
+        </div>
+        <div class="col-md-9">
+            <nop-editor asp-for="Testimonial.Testimonial2_UserCountry" />
+            <span asp-validation-for="Testimonial.Testimonial2_UserCountry"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            <nop-override-store-checkbox asp-for="Testimonial.Testimonial2_UserImg_OverrideForStore" asp-input="Testimonial.Testimonial2_UserImg" asp-store-scope="@Model.Testimonial.ActiveStoreScopeConfiguration" />
+            <nop-label asp-for="Testimonial.Testimonial2_UserImg" />
+        </div>
+        <div class="col-md-9">
+            <nop-editor asp-for="Testimonial.Testimonial2_UserImg" />
+            <span asp-validation-for="Testimonial.Testimonial2_UserImg"></span>
+        </div>
+    </div>
+    <hr />
+    <div class="form-group row">
+        <div class="col-md-3">
+            <nop-override-store-checkbox asp-for="Testimonial.Testimonial3_Description_OverrideForStore" asp-input="Testimonial.Testimonial3_Description" asp-store-scope="@Model.Testimonial.ActiveStoreScopeConfiguration" />
+            <nop-label asp-for="Testimonial.Testimonial3_Description" />
+        </div>
+        <div class="col-md-9">
+            <nop-textarea asp-for="Testimonial.Testimonial3_Description" />
+            <span asp-validation-for="Testimonial.Testimonial3_Description"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            <nop-override-store-checkbox asp-for="Testimonial.Testimonial3_UserName_OverrideForStore" asp-input="Testimonial.Testimonial3_UserName" asp-store-scope="@Model.Testimonial.ActiveStoreScopeConfiguration" />
+            <nop-label asp-for="Testimonial.Testimonial3_UserName" />
+        </div>
+        <div class="col-md-9">
+            <nop-editor asp-for="Testimonial.Testimonial3_UserName" />
+            <span asp-validation-for="Testimonial.Testimonial3_UserName"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            <nop-override-store-checkbox asp-for="Testimonial.Testimonial3_UserCountry_OverrideForStore" asp-input="Testimonial.Testimonial3_UserCountry" asp-store-scope="@Model.Testimonial.ActiveStoreScopeConfiguration" />
+            <nop-label asp-for="Testimonial.Testimonial3_UserCountry" />
+        </div>
+        <div class="col-md-9">
+            <nop-editor asp-for="Testimonial.Testimonial3_UserCountry" />
+            <span asp-validation-for="Testimonial.Testimonial3_UserCountry"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            <nop-override-store-checkbox asp-for="Testimonial.Testimonial3_UserImg_OverrideForStore" asp-input="Testimonial.Testimonial3_UserImg" asp-store-scope="@Model.Testimonial.ActiveStoreScopeConfiguration" />
+            <nop-label asp-for="Testimonial.Testimonial3_UserImg" />
+        </div>
+        <div class="col-md-9">
+            <nop-editor asp-for="Testimonial.Testimonial3_UserImg" />
+            <span asp-validation-for="Testimonial.Testimonial3_UserImg"></span>
+        </div>
+    </div>*@
+
+</div>

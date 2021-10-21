@@ -1,0 +1,76 @@
+﻿@model BlogPost
+@using Nop.Services.Blogs
+@{
+    var blogService = EngineContext.Current.Resolve<IBlogService>();
+    var storeContext = EngineContext.Current.Resolve<IStoreContext>();
+    var blogList = blogService.GetAllBlogPostsAsync(storeContext.GetCurrentStore().Id).Result;
+}
+
+<section class="blog_posts_col">
+    <div class="container">
+        <div>
+            <h3 class="sub_heading">@Model.SmallTitle</h3>
+            <h1 class="heading">@Model.LargeTitle</h1>
+            <div class="text_content">
+                <div class="row">
+                    <div class="col-md-8">
+                        @{
+                            int i = 0;
+                            foreach (var blog in blogList)
+                            {
+                                //top 3 only
+                                if (i < 4)
+                                {
+
+
+                                    <div class="blog-posts-body">
+                                        <div class="img">
+                                            <img src="../Themes/TourAndTravels/Content/images/blog_1.jpg" />
+                                        </div>
+                                        <div class="posts-body">
+                                            @if (blog.StartDateUtc.HasValue)
+                                            {
+                                                <div class="date-section">
+                                                    <h1>@blog.StartDateUtc.Value.ToString("dd")</h1><span>@blog.StartDateUtc.Value.ToString("MMM")</span>
+                                                </div>
+                                            }
+
+                                            <h1>@blog.Title</h1>
+                                            <h4>@blog.MetaTitle</h4>
+
+                                            <div class="post-body-section">
+                                                <p>@blog.BodyOverview</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        }
+                    </div>
+                    <div class="col-md-4">
+                        <div class="coupon_box">
+                            @{
+                                var backgorundUrl = "../Themes/TourAndTravels/Content/images/code_bg.jpg";
+                                if (string.IsNullOrEmpty(Model.DiscountBannerURL))
+                                {
+                                    backgorundUrl = Model.DiscountBannerURL;
+                                }
+                            }
+                            <img src="@backgorundUrl" />
+
+                            <div class="coupon_code_text">
+                                <h3>@Model.CouponBoxTitle</h3>
+                                <small>@Model.CouponBoxDescription</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="text-center blog_btn">
+                <a href="@Url.RouteUrl("Blog")" class="d_inline_block"><input type="button" class="btn btn_blue" value="@T("Themes.TourAndTravels.ExploreAllBlogs")" /></a>
+            </div>
+        </div>
+    </div>
+</section>

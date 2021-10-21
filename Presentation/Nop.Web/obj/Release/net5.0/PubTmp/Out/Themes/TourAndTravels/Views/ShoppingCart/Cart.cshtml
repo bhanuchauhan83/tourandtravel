@@ -1,0 +1,161 @@
+﻿@model ShoppingCartModel
+@{
+    Layout = "_ColumnsTwo_custom";
+
+    //title
+    Html.AddTitleParts(T("PageTitle.ShoppingCart").Text);
+    //page class
+    Html.AppendPageCssClassParts("html-shopping-cart-page");
+}
+@if (!Model.OnePageCheckoutEnabled)
+{
+    @await Component.InvokeAsync("CheckoutProgress", new { step = CheckoutProgressStep.Cart })
+}
+
+@if (Model.Items.Count > 0)
+{
+
+    @await Component.InvokeAsync("EditPerson")
+    
+
+    @await Component.InvokeAsync("TourAndTravelOrderSummary", new { overriddenModel = Model })
+    @section right{
+
+        <div class="totals column_card">
+
+            @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.OrderSummaryTotals })
+
+            @await Component.InvokeAsync("TravelPackageOrderTotal", new { isEditable = Model.IsEditable, additionalData = Model })
+            @if (Model.IsEditable)
+            {
+                if (!string.IsNullOrEmpty(Model.MinOrderSubtotalWarning))
+                {
+                    <div class="min-amount-warning">
+                        @Model.MinOrderSubtotalWarning
+                    </div>
+                }
+            }
+            @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.OrderSummaryCartFooter })
+            @if (Model.IsEditable)
+            {
+                <div class="cart-collaterals">
+                    <div class="deals">
+                        <div>
+                            @await Html.PartialAsync("_DiscountBox", Model.DiscountBox)
+                        </div>
+
+                        <div>
+                            @await Html.PartialAsync("_GiftCardBox", Model.GiftCardBox)
+                        </div>
+
+                        @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.OrderSummaryContentDeals })
+                    </div>
+                </div>
+            }
+            @if (Model.IsEditable)
+            {
+                if (Model.TermsOfServiceOnShoppingCartPage)
+                {
+                    <div id="terms-of-service-warning-box" title="@T("Checkout.TermsOfService")" style="display: none;">
+                        <p>@T("Checkout.TermsOfService.PleaseAccept")</p>
+                    </div>
+
+                    <div class="terms-of-service">
+                        <input id="termsofservice" type="checkbox" name="termsofservice" />
+                        <label for="termsofservice">@T("Checkout.TermsOfService.IAccept")</label>
+                        @if (Model.TermsOfServicePopup)
+                        {
+                            <a class="read" id="read-terms">@T("Checkout.TermsOfService.Read")</a>
+                            <script asp-location="Footer">
+                                        $(document).ready(function() {
+                                            $('#read-terms').on('click',
+                                                function(e) {
+                                                    e.preventDefault();
+                                                    displayPopupContentFromUrl(
+                                                        '@Url.RouteUrl("TopicPopup", new {SystemName = "conditionsofuse"})',
+                                                        '@T("Checkout.TermsOfService")');
+                                                });
+                                        });
+                            </script>
+                        }
+                        else
+                        {
+                            <a class="read" id="read-terms" href="@Url.RouteUrl("Topic", new { SeName = await Html.GetTopicSeNameAsync("conditionsofuse") })">@T("Checkout.TermsOfService.Read")</a>
+                        }
+                    </div>
+                }
+                <div class="checkout-buttons">
+                    @if (string.IsNullOrEmpty(Model.MinOrderSubtotalWarning) && !Model.HideCheckoutButton)
+                    {
+                        <script asp-location="Footer">
+                            $(document).ready(function () {
+                                $('#checkout').on('click', function () {
+                                    debugger;
+                                    //terms of service
+                                    var termOfServiceOk = true;
+                                    if ($('#termsofservice').length > 0) {
+                                        //terms of service element exists
+                                        if (!$('#termsofservice').is(':checked')) {
+                                            $("#terms-of-service-warning-box").dialog();
+                                            termOfServiceOk = false;
+                                        } else {
+                                            termOfServiceOk = true;
+                                        }
+                                    }
+                                    return termOfServiceOk;
+                                });
+                            });
+                        </script>
+                        <div class="proceed_btn">
+                            <button type="submit" id="checkout" name="checkout" value="checkout" class="button-1 checkout-button">
+                                @T("Checkout.Button")
+                            </button>
+                        </div>
+
+                    }
+                </div>
+                <div class="addon-buttons">
+                    @*Payment method buttons (e.g. GoogleCheckoutButton, Paypal Express)*@
+                    @foreach (var pm in Model.ButtonPaymentMethodViewComponentNames)
+                    {
+                        //await Component.InvokeAsync(pm)
+                    }
+                </div>
+            }
+        </div>
+
+        @await Component.InvokeAsync("PollBlock", new { systemKeyword = "LeftColumnPoll" })
+        @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.LeftSideColumnAfter })
+
+    }
+    <script>
+        //$(document).ready(function () {
+        //    var referer = document.referrer;
+        //    var parametter = referer.split('?')[1];
+        //    if (parametter) {
+        //        window.history.replaceState(null, null, "?" + parametter);
+
+        //    }
+        //})
+        function getParameterByName(name, url = window.location.href) {
+            name = name.replace(/[\[\]]/g, '\\$&');
+            var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, ' '));
+        }
+
+
+    </script>
+}
+else
+{
+<div class="no-data">
+    <div class="empty_cart">
+        <img src="../Themes/TourAndTravels/Content/images/no-cart.svg" alt="empty cart" draggable="false" />
+    </div>
+    @T("ShoppingCart.CartIsEmpty")
+</div>
+}
+

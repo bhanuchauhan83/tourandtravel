@@ -1,0 +1,56 @@
+﻿@model ConfigurationModel
+<div class="card-body">
+    <div class="form-group row">
+        <div class="col-md-3">
+            <nop-override-store-checkbox asp-for="BlogPost.SmallTitle_OverrideForStore" asp-input="BlogPost.SmallTitle" asp-store-scope="@Model.BlogPost.ActiveStoreScopeConfiguration" />
+            <nop-label asp-for="BlogPost.SmallTitle" />
+        </div>
+        <div class="col-md-9">
+            <nop-editor asp-for="BlogPost.SmallTitle" />
+            <span asp-validation-for="BlogPost.SmallTitle"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            <nop-override-store-checkbox asp-for="BlogPost.LargeTitle_OverrideForStore" asp-input="BlogPost.LargeTitle" asp-store-scope="@Model.BlogPost.ActiveStoreScopeConfiguration" />
+            <nop-label asp-for="BlogPost.LargeTitle" />
+        </div>
+        <div class="col-md-9">
+            <nop-editor asp-for="BlogPost.LargeTitle" />
+            <span asp-validation-for="BlogPost.LargeTitle"></span>
+        </div>
+    </div>   
+    <div class="form-group row">
+        <div class="col-md-3">
+            <nop-override-store-checkbox asp-for="BlogPost.CouponBoxTitle" asp-input="BlogPost.CouponBoxTitle" asp-store-scope="@Model.BlogPost.ActiveStoreScopeConfiguration" />
+            <nop-label asp-for="BlogPost.CouponBoxTitle" />
+        </div>
+        <div class="col-md-9">
+            <nop-editor asp-for="BlogPost.CouponBoxTitle" />
+            <span asp-validation-for="BlogPost.CouponBoxTitle"></span>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-3">
+            <nop-override-store-checkbox asp-for="BlogPost.CouponBoxDescription" asp-input="BlogPost.CouponBoxDescription" asp-store-scope="@Model.BlogPost.ActiveStoreScopeConfiguration" />
+            <nop-label asp-for="BlogPost.CouponBoxDescription" />
+        </div>
+        <div class="col-md-9">
+            <nop-textarea asp-for="BlogPost.CouponBoxDescription" />
+            <span asp-validation-for="BlogPost.CouponBoxDescription"></span>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-3">
+            <nop-override-store-checkbox asp-for="BlogPost.DiscountBanner" asp-input="BlogPost.DiscountBanner" asp-store-scope="@Model.BlogPost.ActiveStoreScopeConfiguration" />
+            <nop-label asp-for="BlogPost.DiscountBanner" />
+        </div>
+        <div class="col-md-9">
+            <nop-editor asp-for="BlogPost.DiscountBanner" />
+            <span asp-validation-for="BlogPost.DiscountBanner"></span>
+        </div>
+    </div>
+  
+</div>

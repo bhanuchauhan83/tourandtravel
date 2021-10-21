@@ -1,0 +1,207 @@
+﻿@model TourAndTravelOnePageCheckoutModel
+@using Nop.Core
+@using Nop.Services.Customers
+@inject IWebHelper webHelper
+@inject IWorkContext workContext
+@inject ICustomerService _customerService
+@{
+    Layout = "_ColumnsOne";
+
+    //scripts
+    Html.AddScriptParts(ResourceLocation.Footer, "~/js/public.accordion.js");
+    Html.AddScriptParts(ResourceLocation.Footer, "~/js/public.onepagecheckout.js");
+    Html.AddScriptParts(ResourceLocation.Footer, "~/Plugins/Widget.TourAndTravelHomePage/Content/js/AddPackageToCartAjax.js");
+
+    var storeLocation = webHelper.GetStoreLocation();
+
+    //title
+    Html.AddTitleParts(T("PageTitle.Checkout").Text);
+    //page class
+    Html.AppendPageCssClassParts("html-checkout-page");
+}
+@{
+    //step numbers
+    //var personsInfoStepNumber = 1;
+    var personalInfoStepNumber = 1;
+    var contactInfoStepNumber = 2;
+    var paymentMethodStepNumber = 3;
+    var paymentInfoStepNumber = 4;
+    var confirmOrderStepNumber = 5;
+
+}
+<div class="container">
+    <div class="page checkout-page">
+        <div class="page-title column_card">
+            <h1>@T("Checkout")</h1>
+        </div>
+        <div class="page-body checkout-data">
+            @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.OpcContentBefore })
+            <ol class="opc" id="checkout-steps">
+                
+                <li id="opc-traveller_personal_info" class="tab-section allow">
+                    <div class="step-title">
+                        <span class="number">@personalInfoStepNumber</span>
+                        <h2 class="title">@T("Checkout.PersonsInfo")</h2>
+                    </div>
+                    <div id="traveller-personal-info" class="step a-item" style="display: none;">
+                        <form action="" id="co-traveller-personal-info-form">
+                            <div id="checkout-traveller-personal-info-load">
+                                @*payment methods content will be loaded here*@
+                            </div>                           
+                        </form>
+                        <script asp-location="Footer">
+
+                            PersonalInfo.init('#co-traveller-personal-info-form', '@(storeLocation)checkout/OpcSavePersonalInfo/');
+                            PersonInfo.LoadHtml('@(storeLocation)checkout/OpcLoadPersonInfoHtml/');
+                        </script>
+                        <div class="buttons buttons_outer" id="traveller-personal-info-buttons-container">
+                            <div class="dFlex">
+                                <p class="back-link">
+                                    <a href="#" onclick="Checkout.back(); return false;"><small>&laquo; </small>@T("Common.Back")</a>
+                                </p>
+                                <button type="button" name="save" class="button-1 payment-method-next-step-button" onclick="PersonalInfo.save()">@T("Common.Continue")</button>
+                            </div>
+                            <span class="please-wait" id="payment-method-please-wait" style="display: none;">@T("Common.LoadingNextStep")</span>
+                        </div>
+                    </div>
+                </li>
+                <li id="opc-contact_info" class="tab-section">
+                    <div class="step-title">
+                        <span class="number">@contactInfoStepNumber</span>
+                        <h2 class="title">@T("Checkout.ContactInfo")</h2>
+                    </div>
+                    <div id="contact-info" class="step a-item" style="display: none;">
+                        <form action="" id="co-contactInfo-form">
+                            <div id="checkout-contact-info-load">
+                            </div>
+                        </form>
+                        <script asp-location="Footer">
+                        ContactInfo.init('#co-contactInfo-form', '@(storeLocation)checkout/OpcSaveContactInfo/');
+                        </script>
+                        <div class="buttons buttons_outer" id="contact-info-buttons-container">
+                            <div class="dFlex">
+                                <p class="back-link">
+                                    <a href="#" onclick="Checkout.back(); return false;"><small>&laquo; </small>@T("Common.Back")</a>
+                                </p>
+                                <button type="button" class="button-1 contact-info-next-step-button" onclick="ContactInfo.save()">@T("Common.Continue")</button>
+                            </div>
+                            <span class="please-wait" id="contact-info-please-wait" style="display: none;">@T("Common.LoadingNextStep")</span>
+                        </div>
+                    </div>
+                </li>
+                <li id="opc-payment_method" class="tab-section">
+                    <div class="step-title">
+                        <span class="number">@paymentMethodStepNumber</span>
+                        <h2 class="title">@T("Checkout.PaymentMethod")</h2>
+                    </div>
+                    <div id="checkout-step-payment-method" class="step a-item" style="display: none;">
+                        <form action="" id="co-payment-method-form">
+                            <div id="checkout-payment-method-load">
+                                @*payment methods content will be loaded here*@ Payment is not required
+                            </div>
+                        </form>
+                        <script asp-location="Footer">
+                        var localized_data = {
+                            NotAvailableMethodsError: "@T("PaymentMethod.NotAvailableMethodsError")",
+                            SpecifyMethodError: "@T("PaymentMethod.SpecifyMethodError")"
+                        };
+                        PaymentMethod.init('#co-payment-method-form', '@(storeLocation)checkout/OpcTourAndTravelSavePaymentMethod/', localized_data);
+                        </script>
+                        <div class="buttons buttons_outer" id="payment-method-buttons-container">
+                            <div class="dFlex">
+                                <p class="back-link">
+                                    <a href="#" onclick="Checkout.back(); return false;"><small>&laquo; </small>@T("Common.Back")</a>
+                                </p>
+                                <button type="button" name="save" class="button-1 payment-method-next-step-button" onclick="PaymentMethod.save()">@T("Common.Continue")</button>
+                            </div>
+                            <span class="please-wait" id="payment-method-please-wait" style="display: none;">@T("Common.LoadingNextStep")</span>
+                        </div>
+                    </div>
+                </li>
+                <li id="opc-payment_info" class="tab-section">
+                    <div class="step-title">
+                        <span class="number">@paymentInfoStepNumber</span>
+                        <h2 class="title">@T("Checkout.PaymentInfo")</h2>
+                    </div>
+                    <div id="checkout-step-payment-info" class="step a-item" style="display: none;">
+                        <form action="" id="co-payment-info-form">
+                            <div id="checkout-payment-info-load">
+                                @*payment info content will be loaded here*@ Payment is not required
+                            </div>
+                        </form>
+                        <script asp-location="Footer">
+                        PaymentInfo.init('#co-payment-info-form', '@(storeLocation)checkout/OpcSavePaymentInfo/');
+                        </script>
+                        <div class="buttons buttons_outer" id="payment-info-buttons-container">
+                            <div class="dFlex">
+                                <p class="back-link">
+                                    <a href="#" onclick="Checkout.back(); return false;"><small>&laquo; </small>@T("Common.Back")</a>
+                                </p>
+                                <button type="button" class="button-1 payment-info-next-step-button" onclick="PaymentInfo.save()">@T("Common.Continue")</button>
+                            </div>
+                            <span class="please-wait" id="payment-info-please-wait" style="display: none;">@T("Common.LoadingNextStep")</span>
+                        </div>
+                    </div>
+                </li>
+                <li id="opc-confirm_order" class="tab-section">
+                    <div class="step-title">
+                        <span class="number">@confirmOrderStepNumber</span>
+                        <h2 class="title">@T("Checkout.ConfirmOrder")</h2>
+                    </div>
+                    <div id="checkout-step-confirm-order" class="step a-item" style="display: none;">
+                        <div id="checkout-confirm-order-load">
+                            @*confirm order content will be loaded here*@
+                        </div>
+                        <script asp-location="Footer">
+                        ConfirmOrder.init('@(storeLocation)checkout/OpcConfirmOrder/', '@Url.RouteUrl("CheckoutCompleted")');
+                        </script>
+                        <div class="buttons buttons_outer" id="confirm-order-buttons-container">
+                            <div class="dFlex">
+                                <p class="back-link">
+                                    <a href="#" onclick="Checkout.back(); return false;"><small>&laquo; </small>@T("Common.Back")</a>
+                                </p>
+                                <button type="button" class="button-1 confirm-order-next-step-button" onclick="ConfirmOrder.save()">@T("Common.Confirm")</button>
+                            </div>
+                            <span class="please-wait" id="confirm-order-please-wait" style="display: none;">@T("Checkout.SubmittingOrder")</span>
+                        </div>
+                    </div>
+                </li>
+            </ol>
+            @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.OpcContentAfter })
+        </div>
+        <script asp-location="Footer">
+        Accordion.init('checkout-steps', '.step-title', true);
+            Accordion.openSection('#opc-traveller_personal_info');
+        Checkout.init('@(storeLocation)cart/');
+        if (Billing.disableBillingAddressCheckoutStep)
+        {
+            Accordion.hideSection('#opc-traveller_personal_info');
+            Billing.save();
+        }
+        </script>
+        <script>
+            $(document).ready(function () {
+                var referer = document.referrer;
+                var parametter = referer.split('?')[1];
+                if (parametter) {
+                    window.history.replaceState(null, null, "?" + parametter);
+
+                }
+                console.log(getParameterByName('p'));
+                $('#NumberOfPersons').val(getParameterByName('p'))
+
+                function getParameterByName(name, url = window.location.href) {
+                    name = name.replace(/[\[\]]/g, '\\$&');
+                    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+                        results = regex.exec(url);
+                    if (!results) return null;
+                    if (!results[2]) return '';
+                    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+                }
+
+            })
+
+        </script>
+    </div>
+</div>
+

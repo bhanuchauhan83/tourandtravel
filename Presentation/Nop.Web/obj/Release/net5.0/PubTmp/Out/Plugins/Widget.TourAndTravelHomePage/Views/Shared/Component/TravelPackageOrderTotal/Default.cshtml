@@ -1,0 +1,122 @@
+﻿@model OrderTotalsModel
+@using Nop.Web.Models.ShoppingCart
+@using Nop.Core.Infrastructure
+@using Microsoft.AspNetCore.Http
+@using Nop.Core
+@{
+    var httpContext = EngineContext.Current.Resolve<IHttpContextAccessor>();
+    var workContext = EngineContext.Current.Resolve<IWorkContext>();
+    var numberOfPersons = httpContext.HttpContext.Session.GetString("NumberOfPersons_" + workContext.GetCurrentCustomerAsync().Result.Id);
+    if (numberOfPersons == null || Convert.ToInt32(numberOfPersons) <= 0)
+    {
+        numberOfPersons = "1";
+    }
+    // var numberOfPersons= httpContext.HttpContext.Session.GetString("NumberOfPersons_"+)
+
+}
+
+<section class="cart_total_outer">
+    @*GRAND TOTAL SECTION BEGIN*@
+    <div class="grandTotal">
+
+        <div class="text-left">
+            <h4>@T("ShoppingCart.Totals.OrderTotal")</h4>
+            <small>(inclusive of all taxes)</small>
+        </div>
+
+        <div>
+            @if (!string.IsNullOrEmpty(Model.OrderTotal))
+            {
+                <h1 class="value-summary">@Model.OrderTotal</h1>
+            }
+            else
+            {
+                <h1>@T("ShoppingCart.Totals.CalculatedDuringCheckout")</h1>
+            }
+        </div>
+    </div>
+    @*GRAND TOTAL SECTION END*@
+
+
+    @*BILL DETAIL SECTION BEGIN*@
+    <div class="bill_details">
+        <ul>
+            @if (numberOfPersons != null && Convert.ToInt32(numberOfPersons) > 0)
+            {
+                <li>
+                    <p>No. of Adults</p>
+                    <label>@ViewBag.Quantity</label>
+                </li>
+                @if (ViewBag.Children != null)
+                {
+                    <li>
+                        <p>No. of childs</p>
+                        <label>@ViewBag.Children</label>
+                    </li>
+                }
+
+            }
+
+            <li>
+                <p>@T("ShoppingCart.Totals.SubTotal")</p>
+                <label><i class="fas fa-dollar-sign"></i> @Model.SubTotal</label>
+            </li>
+            @if (!string.IsNullOrEmpty(Model.SubTotalDiscount))
+            {
+                <li class="discount">
+                    <p>@T("ShoppingCart.Totals.SubTotalDiscount")</p>
+                    <label class="value-summary">@Model.SubTotalDiscount</label>
+                </li>
+            }
+            @if (Model.DisplayTaxRates && Model.TaxRates.Count > 0)
+            {
+                foreach (var taxRate in Model.TaxRates)
+                {
+                    <li>
+                        <p>@string.Format(T("ShoppingCart.Totals.TaxRateLine").Text, taxRate.Rate)</p>
+                        <label><i class="fas fa-dollar-sign"></i> @taxRate.Value</label>
+                    </li>
+                }
+            }
+            @if (Model.DisplayTax)
+            {
+                <li>
+                    <p>@T("ShoppingCart.Totals.Tax")</p>
+                    <label><i class="fas fa-dollar-sign"></i> @Model.Tax</label>
+                </li>
+            }
+
+            @if (!string.IsNullOrEmpty(Model.OrderTotalDiscount))
+            {
+                <li class="discount">
+                    <p>@T("ShoppingCart.Totals.OrderTotalDiscount")</p>
+                    <label class="value-summary">@Model.OrderTotalDiscount</label>
+                </li>
+            }
+            @if (Model.GiftCards.Count > 0)
+            {
+                foreach (var gc in Model.GiftCards)
+                {
+                    <li class="discount">
+                        <div class="text-left">
+                            <p>@T("ShoppingCart.Totals.GiftCardInfo")</p>
+                            <span>@T("ShoppingCart.Totals.GiftCardInfo.Code", gc.CouponCode)</span>
+                        </div>
+                        @if (Model.IsEditable)
+                        {
+                            //little hack here with empty "value" element
+                            <button type="submit" name="removegiftcard-@gc.Id" class="remove-gift-card-button"></button>
+                        }
+                        <div class="text-right">
+                            <span class="giftcard-remaining">@string.Format(T("ShoppingCart.Totals.GiftCardInfo.Remaining").Text, gc.Remaining)</span>
+                            <label class="value-summary">@gc.Amount</label>
+                        </div>
+                    </li>
+                }
+            }
+
+
+        </ul>
+    </div>
+</section>
+

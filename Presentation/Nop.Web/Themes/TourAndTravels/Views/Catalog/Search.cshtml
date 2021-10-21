@@ -1,0 +1,84 @@
+﻿@model Nop.Web.Models.Catalog.SearchModel
+@{
+    Layout = "_ColumnsOne";
+
+    //title
+    Html.AddTitleParts(T("PageTitle.Search").Text);
+    //page class
+    Html.AppendPageCssClassParts("html-search-page");
+}
+<script asp-location="Footer">
+    $(document).ready(function () {
+        $("#@Html.IdFor(model => model.advs)").on('click', toggleAdvancedSearch);
+        toggleAdvancedSearch();
+    });
+
+    function toggleAdvancedSearch() {
+        if ($('#@Html.IdFor(model => model.advs)').is(':checked')) {
+            $('#advanced-search-block').show();
+        }
+        else {
+            $('#advanced-search-block').hide();
+        }
+    }
+</script>
+
+@*@section CatalogFilters {
+        @await Html.PartialAsync("_CatalogFilters", Model.CatalogProductsModel)
+    }*@
+
+
+<div class="container">
+    <section class="sortingForm">
+        @await Html.PartialAsync("_CatalogSelectors", Model.CatalogProductsModel)
+        @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.ProductSearchPageBeforeResults })
+    </section>
+
+    <div class="page search-page">
+        <div class="page-title column_card">
+            <h1>@T("Search")</h1>
+        </div>
+        <div class="page-body">
+            @*@await Html.PartialAsync("_CatalogSelectors", Model.CatalogProductsModel)
+                @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.ProductSearchPageBeforeResults })*@
+            <div class="search-results">
+                @{
+                    var catalogProductsViewData = new ViewDataDictionary(ViewData);
+                    catalogProductsViewData["fetchUrl"] = Html.Raw(Url.Action("SearchProducts", "Catalog"));
+                }
+                @await Html.PartialAsync("_CatalogProducts", Model.CatalogProductsModel, catalogProductsViewData)
+                <script asp-location="Footer">
+                $(document).ready(function () {
+                    $(CatalogProducts).on('before', function (e) {
+                        var isAdvanced = $('#@Html.IdFor(model => model.advs)').is(':checked');
+
+                        e.payload.urlBuilder
+                            .addParameter('q', $('#@Html.IdFor(model => model.q)').val())
+                            .addParameter('advs', isAdvanced);
+
+                        if (isAdvanced) {
+                            e.payload.urlBuilder
+                                .addParameter('cid', $('#@Html.IdFor(model => model.cid)').val())
+                                .addParameter('isc', $('#@Html.IdFor(model => model.isc)').is(':checked'))
+                                .addParameter('mid', $('#@Html.IdFor(model => model.mid)').val())
+                                .addParameter('vid', $('#@Html.IdFor(model => model.vid)').val())
+                                .addParameter('sid', $('#@Html.IdFor(model => model.sid)').is(':checked'));
+                        }
+                    });
+                });
+                </script>
+            </div>
+            @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.ProductSearchPageAfterResults })
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        var referer = document.referrer;
+        var parametter = referer.split('?')[1];
+        if (parametter)
+            window.history.replaceState(null, null, "?" + parametter);
+    })
+
+</script>

@@ -1,0 +1,48 @@
+﻿@model BestDeals
+
+@if (Model.IsAnyBestDealExist)
+{
+<section class="best_deals_col">
+    <div class="container">
+        <section class="text-center">
+            <h3 class="sub_heading">@Model.SmallTitle</h3>
+            <h1 class="heading">@Model.LargeTitle</h1>
+            <div class="text_content">
+                <p>@Model.Description</p>
+            </div>
+        </section>
+    </div>
+    @await Component.InvokeAsync("BestDealSection")
+
+    
+
+    <div class="text-center">
+        <a href="@Model.KnowMoreLink" class="d_inline_block"><input type="button" class="btn btn_blue" value="@T("Themes.TourAndTravels.KnowMore")" /></a>
+    </div>
+
+</section>
+}
+@*Discount coupon banner section begin*@
+<div class="deal_banner">
+    <div class="banner_img">
+        @{
+            var imgURL = "../Themes/TourAndTravels/Content/images/bg_discount.png";
+            if (!string.IsNullOrEmpty(Model.DiscountBannerImageURL))
+            {
+                imgURL = Model.DiscountBannerImageURL;
+            }
+        }
+        <img src="@imgURL" class="img-responsive" />
+    </div>
+
+    <div class="deal_banner_content">
+        <h1>@Model.Title1</h1>
+        <h3>@Model.Title2</h3>
+
+        <p>@Model.DiscountBannerDescription</p>
+
+        <h5>@Model.Package</h5>
+    </div>
+
+</div>
+@*Discount coupon banner section end*@

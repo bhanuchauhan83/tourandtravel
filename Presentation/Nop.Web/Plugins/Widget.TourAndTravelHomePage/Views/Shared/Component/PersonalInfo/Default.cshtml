@@ -1,0 +1,104 @@
+﻿@model Dictionary<string, int>
+
+@{
+    int adultCount = 0;
+    int childCount = 0;
+    if (Model.Count > 0)
+    {
+        adultCount += Model.FirstOrDefault(x => x.Key == "Adult").Value;
+        childCount += Model.FirstOrDefault(x => x.Key == "Children").Value;
+    }
+    adultCount= adultCount == 0 ? 1 : adultCount;
+}
+
+@for (int index = 1; index <= adultCount; index++)
+{
+    <h1 class="form_title">Adult @index Info</h1>
+    <section class="traveller_info_form">
+        <div class="inputs">
+            <div class="formField">
+                <label>First Name:</label>
+                <nop-required />
+            </div>
+            <input type="text" name="Adult_FirstName_@index" id="Adult_FirstName_@index" class="form-control" />
+
+        </div>
+        <div class="inputs">
+            <label>Last Name:</label>
+            <input type="text" name="Adult_LastName_@index" id="Adult_LastName_@index" class="form-control" />
+        </div>
+        <div class="inputs">
+            <div class="formField">
+                <label>Age:</label>
+                <nop-required />
+            </div>
+            <input type="number" name="Adult_Age_@index" min="12" id="Adult_Age_@index" class="form-control" />
+        </div>
+    </section>
+
+
+}
+@for (int index = 1; index <= childCount; index++)
+{
+    <h1 class="form_title">Child @index Info</h1>
+    <section class="traveller_info_form">
+        <div class="inputs">
+            <div class="formField">
+                <label>First Name:</label>
+                <nop-required />
+            </div>
+            <input type="text" name="Child_FirstName_@index" id="Child_FirstName_@index" class="form-control" />
+
+        </div>
+        <div class="inputs">
+            <label>Last Name:</label>
+            <input type="text" name="Child_LastName_@index" id="Child_LastName_@index" class="form-control" />
+        </div>
+        <div class="inputs">
+            <div class="formField">
+                <label>Age:</label>
+                <nop-required />
+            </div>
+            <input type="number" name="Child_Age_@index" id="Child_Age_@index" min="1" class="form-control" />
+        </div>
+    </section>
+
+
+}
+@*<script>
+
+    var roomNumber = 1;
+    $('#EditTravellerInfo').on('click', function () {
+        $('.guest-info').toggle();
+    })
+    function removeRoom(v) {
+        if ($('.addRoomRow').length > 1) {
+            $(v).parents('.addRoomRow').first().remove();
+            roomNumber--;
+        } else {
+            $('.guest-info').toggle();
+        }
+
+    }
+    function changeCount(v) {
+        $(v).parent('ul').children().removeClass('selected');
+        $(v).addClass('selected');
+    }
+    $('.btnAddRoom').on('click', function () {
+        roomNumber++;
+        $('.guest-info .addRoomRow').last().after("<div class='addRoomRow'>  <div class='addRoomLeft'><p class= 'darkText font16 latoBlack capText'> Room " + roomNumber + "</p><button type='button' onclick='removeRoom(this)'>&times;</button></div >" + $('.guest-info .addRoomRow .addRoomRight').html() + "</div>");
+    })
+    $('.btnApply').on('click', function () {
+        var adultCount = 0;
+        var childCount = 0;
+        $('.guest-info .adult-count li.selected').each(function () {
+            adultCount += parseInt($(this).attr('value'));
+        })
+        $('.guest-info .children-count li.selected').each(function () {
+            childCount += parseInt($(this).attr('value'));
+        })
+        $('#guestInfo').val(adultCount + ' Adults, ' + childCount + ' Children');
+        $('.guest-info').toggle();
+        PersonInfo.UpdateTravellerInfo();
+    })
+</script>*@

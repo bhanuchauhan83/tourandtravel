@@ -1,0 +1,189 @@
+﻿@model TravelPackageModel
+@using Nop.Services.Common
+@using Nop.Core
+@{
+    var genericAttributeService = Nop.Core.Infrastructure.EngineContext.Current.Resolve<IGenericAttributeService>();
+    var workContext = Nop.Core.Infrastructure.EngineContext.Current.Resolve<IWorkContext>();
+
+    var showTour = ViewBag.ShowTour ?? false;
+
+    const string hidePackgeBlockAttributeName = "ProductPage.HidePackgeBlock";
+    var hidePackgeBlock = showTour ? false : await genericAttributeService.GetAttributeAsync<bool>(await workContext.GetCurrentCustomerAsync(), hidePackgeBlockAttributeName);
+
+}
+
+<nop-card asp-name="trip-packge" asp-icon="fas fa-suitcase" asp-title="@T(TourAndTravelDefault.PackageManagementTabName)" asp-hide-block-attribute-name="@hidePackgeBlockAttributeName" asp-hide="@hidePackgeBlock">
+    <div class="card-body">
+        <div class="form-group row">
+            <div class="col-md-3">
+                <nop-label asp-for="Packages.IncludeFlights" />
+            </div>
+            <div class="col-md-9">
+                <nop-editor asp-for="Packages.IncludeFlights" />
+                <span asp-validation-for="Packages.IncludeFlights"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-3">
+                <nop-label asp-for="Packages.IncludeHotel" />
+            </div>
+            <div class="col-md-9">
+                <nop-editor asp-for="Packages.IncludeHotel" />
+                <span asp-validation-for="Packages.IncludeHotel"></span>
+            </div>
+        </div>
+        <nop-nested-setting asp-for="Packages.IncludeHotel">
+            <div id="pnlIncludeHotel">
+                <div class="form-group row">
+                    <div class="col-md-3">
+                        <nop-label asp-for="Packages.HotelDetails.Name" />
+                    </div>
+                    <div class="col-md-9">
+                        <nop-editor asp-for="Packages.HotelDetails.Name" />
+                        <span asp-validation-for="Packages.HotelDetails.Name"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-3">
+                        <nop-label asp-for="Packages.HotelDetails.Address1" />
+                    </div>
+                    <div class="col-md-9">
+                        <nop-editor asp-for="Packages.HotelDetails.Address1" />
+                        <span asp-validation-for="Packages.HotelDetails.Address1"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-3">
+                        <nop-label asp-for="Packages.HotelDetails.Address2" />
+                    </div>
+                    <div class="col-md-9">
+                        <nop-editor asp-for="Packages.HotelDetails.Address2" />
+                        <span asp-validation-for="Packages.HotelDetails.Address2"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-3">
+                        <nop-label asp-for="Packages.HotelDetails.ContactNumber" />
+                    </div>
+                    <div class="col-md-9">
+                        <nop-editor asp-for="Packages.HotelDetails.ContactNumber" />
+                        <span asp-validation-for="Packages.HotelDetails.ContactNumber"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-3">
+                        <nop-label asp-for="Packages.HotelDetails.RoomType" />
+                    </div>
+                    <div class="col-md-9">
+                        <nop-editor asp-for="Packages.HotelDetails.RoomType" />
+                        <span asp-validation-for="Packages.HotelDetails.RoomType"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-3">
+                        <nop-label asp-for="Packages.HotelDetails.ServiceDescription" />
+                    </div>
+                    <div class="col-md-9">
+                        <nop-editor asp-for="Packages.HotelDetails.ServiceDescription" asp-template="RichEditor" />
+                        <span asp-validation-for="Packages.HotelDetails.ServiceDescription"></span>
+                    </div>
+                </div>
+            </div>
+        </nop-nested-setting>
+
+        <div class="form-group row">
+            <div class="col-md-3">
+                <nop-label asp-for="Packages.Days" />
+            </div>
+            <div class="col-md-9">
+                <nop-editor asp-for="Packages.Days" />
+                <span asp-validation-for="Packages.Days"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-3">
+                <nop-label asp-for="Packages.Nights" />
+            </div>
+            <div class="col-md-9">
+                <nop-editor asp-for="Packages.Nights" />
+                <span asp-validation-for="Packages.Nights"></span>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-3">
+                <nop-label asp-for="Packages.IncludeBus" />
+            </div>
+            <div class="col-md-9">
+                <nop-editor asp-for="Packages.IncludeBus" />
+                <span asp-validation-for="Packages.IncludeBus"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-3">
+                <nop-label asp-for="Packages.IncludeTrain" />
+            </div>
+            <div class="col-md-9">
+                <nop-editor asp-for="Packages.IncludeTrain" />
+                <span asp-validation-for="Packages.IncludeTrain"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-3">
+                <nop-label asp-for="Packages.IncludeCabs" />
+            </div>
+            <div class="col-md-9">
+                <nop-editor asp-for="Packages.IncludeCabs" />
+                <span asp-validation-for="Packages.IncludeCabs"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-3">
+                <nop-label asp-for="Packages.IncludeCityTour" />
+            </div>
+            <div class="col-md-9">
+                <nop-editor asp-for="Packages.IncludeCityTour" />
+                <span asp-validation-for="Packages.IncludeCityTour"></span>
+            </div>
+        </div>
+    </div>
+</nop-card>
+
+<script>
+
+    function toggleHotelDetails() {
+        if ($('#@Html.IdFor(x => x.Packages.IncludeHotel)').is(':checked')) {
+            $('#pnlIncludeHotel').showElement();
+        } else {
+            $('#pnlIncludeHotel').hideElement();
+        }
+    }
+    $(document).ready(function () {
+        toggleHotelDetails();
+    })
+    $('#@Html.IdFor(x => x.Packages.IncludeHotel)').on('click', function () {
+        toggleHotelDetails();
+    })
+    var form = $('#trip-packge').parents('form').first();
+    if (form) {
+      //  console.log(form);
+        $(form).on('submit', function () {
+            var html = tinymce.get("Packages_HotelDetails_ServiceDescription").getContent();
+            $('#@Html.IdFor(x=>x.Packages.HotelDetails.ServiceDescription)').val(html);
+            $.ajax({
+                cache: false,
+                url: '@Url.Action("Save", "TripPackageManagement")',
+                type: "POST",
+                data: $(form).serialize(),
+                success: function (res) {
+
+                },
+                complete: function () {
+                },
+                error: function () {
+                    //e.preventDefault();
+                }
+            });
+        })
+    }
+</script>

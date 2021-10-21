@@ -1,0 +1,74 @@
+﻿@model BestDeals
+
+<section class="best_deals_col">
+    <div class="container">
+        <section class="text-center">
+            <h3 class="sub_heading">@Model.SmallTitle</h3>
+            <h1 class="heading">@Model.LargeTitle</h1>
+            <div class="text_content">
+                <p>@Model.Description</p>
+            </div>
+        </section>
+        <div class="deals-section">
+            <div class="deal-body">
+                <div class="deals">
+                    <img src="@Model.BestDeal1_ImageURL" title="@Model.BestDeal1_Name" alt="@Model.BestDeal1_Name" />
+                    <div class="deal-info">
+                        <span>@Model.BestDeal1_Name</span>
+                        <span>@Model.BestDeal1_Price</span>
+                    </div>
+                </div>
+                <div class="deals">
+                    <img src="@Model.BestDeal2_ImageURL" title="@Model.BestDeal2_Name" alt="@Model.BestDeal2_Name" />
+                    <div class="deal-info">
+                        <span>@Model.BestDeal2_Name</span>
+                        <span>@Model.BestDeal2_Price</span>
+                    </div>
+                </div>
+                <div class="deals">
+                    <img src="@Model.BestDeal3_ImageURL" title="@Model.BestDeal3_Name" alt="@Model.BestDeal3_Name" />
+                    <div class="deal-info">
+                        <span>@Model.BestDeal3_Name</span>
+                        <span>@Model.BestDeal3_Price</span>
+                    </div>
+                </div>
+                <div class="deals">
+                    <img src="@Model.BestDeal4_ImageURL" title="@Model.BestDeal4_Name" alt="@Model.BestDeal4_Name" />
+                    <div class="deal-info">
+                        <span>@Model.BestDeal4_Name</span>
+                        <span>@Model.BestDeal4_Price</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center">
+            <a href="@Model.KnowMoreLink" class="d_inline_block"><input type="button" class="btn btn_blue" value="@T("Themes.TourAndTravels.KnowMore")" /></a>
+        </div>
+    </div>
+</section>
+
+@*Discount coupon banner section begin*@
+<div class="deal_banner">
+    <div class="banner_img">
+        @{
+            var imgURL = "../Themes/TourAndTravels/Content/images/bg_discount.png";
+            if (!string.IsNullOrEmpty(Model.DiscountBannerImageURL))
+            {
+                imgURL = Model.DiscountBannerImageURL;
+            }
+        }
+        <img src="@imgURL" class="img-responsive" />
+    </div>
+
+    <div class="deal_banner_content">
+        <h1>@Model.Title1</h1>
+        <h3>@Model.Title2</h3>
+
+        <p>@Model.DiscountBannerDescription</p>
+
+        <h5>@Model.Package</h5>
+    </div>
+
+</div>
+@*Discount coupon banner section end*@

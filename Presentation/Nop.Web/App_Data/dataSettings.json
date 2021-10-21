@@ -1,0 +1,6 @@
+﻿{
+  "DataConnectionString": "Data Source=DESKTOP-HU2Q669\\MSSQLSERVER01;Initial Catalog=Nop44;Integrated Security=True;Persist Security Info=False",
+  "DataProvider": "sqlserver",
+  "SQLCommandTimeout": null,
+  "RawDataSettings": {}
+}

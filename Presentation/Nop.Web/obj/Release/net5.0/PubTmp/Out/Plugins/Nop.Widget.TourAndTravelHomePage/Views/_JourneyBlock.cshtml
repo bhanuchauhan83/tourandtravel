@@ -1,0 +1,76 @@
+﻿@model ConfigurationModel
+<div class="card-body">
+    <div class="form-group row">
+        <div class="col-md-3">
+            <nop-override-store-checkbox asp-for="RecentJourney.SmallTitle_OverrideForStore" asp-input="RecentJourney.SmallTitle" asp-store-scope="@Model.RecentJourney.ActiveStoreScopeConfiguration" />
+            <nop-label asp-for="RecentJourney.SmallTitle" />
+        </div>
+        <div class="col-md-9">
+            <nop-editor asp-for="RecentJourney.SmallTitle" />
+            <span asp-validation-for="RecentJourney.SmallTitle"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            <nop-override-store-checkbox asp-for="RecentJourney.LargeTitle_OverrideForStore" asp-input="RecentJourney.LargeTitle" asp-store-scope="@Model.RecentJourney.ActiveStoreScopeConfiguration" />
+            <nop-label asp-for="RecentJourney.LargeTitle" />
+        </div>
+        <div class="col-md-9">
+            <nop-editor asp-for="RecentJourney.LargeTitle" />
+            <span asp-validation-for="RecentJourney.LargeTitle"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            <nop-override-store-checkbox asp-for="RecentJourney.LargeTitle_OverrideForStore" asp-input="RecentJourney.Description" asp-store-scope="@Model.RecentJourney.ActiveStoreScopeConfiguration" />
+            <nop-label asp-for="RecentJourney.Description" />
+        </div>
+        <div class="col-md-9">
+            <nop-textarea asp-for="RecentJourney.Description" />
+            <span asp-validation-for="RecentJourney.Description"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            <nop-override-store-checkbox asp-for="RecentJourney.BackgroundImageId_OverrideForStore" asp-input="RecentJourney.BackgroundImageId" asp-store-scope="@Model.RecentJourney.ActiveStoreScopeConfiguration" />
+            <nop-label asp-for="RecentJourney.BackgroundImageId" />
+        </div>
+        <div class="col-md-9">
+            <nop-editor asp-for="RecentJourney.BackgroundImageId" />
+            <span asp-validation-for="RecentJourney.BackgroundImageId"></span>
+        </div>
+    </div>
+    <hr />
+    <div class="form-group row">
+        <div class="col-md-3">
+            <nop-override-store-checkbox asp-for="RecentJourney.Video1URL_OverrideForStore" asp-input="RecentJourney.Video1URL" asp-store-scope="@Model.RecentJourney.ActiveStoreScopeConfiguration" />
+            <nop-label asp-for="RecentJourney.Video1URL" />
+        </div>
+        <div class="col-md-9">
+            <nop-editor asp-for="RecentJourney.Video1URL" />
+            <span asp-validation-for="RecentJourney.Video1URL"></span>
+        </div>
+    </div>
+    <hr />
+    <div class="form-group row">
+        <div class="col-md-3">
+            <nop-override-store-checkbox asp-for="RecentJourney.Video2URL_OverrideForStore" asp-input="RecentJourney.Video2URL" asp-store-scope="@Model.RecentJourney.ActiveStoreScopeConfiguration" />
+            <nop-label asp-for="RecentJourney.Video2URL" />
+        </div>
+        <div class="col-md-9">
+            <nop-editor asp-for="RecentJourney.Video2URL" />
+            <span asp-validation-for="RecentJourney.Video2URL"></span>
+        </div>
+    </div>
+    <hr />
+    <div class="form-group row">
+        <div class="col-md-3">
+            <nop-override-store-checkbox asp-for="RecentJourney.Video3URL_OverrideForStore" asp-input="RecentJourney.Video3URL" asp-store-scope="@Model.RecentJourney.ActiveStoreScopeConfiguration" />
+            <nop-label asp-for="RecentJourney.Video3URL" />
+        </div>
+        <div class="col-md-9">
+            <nop-editor asp-for="RecentJourney.Video3URL" />
+            <span asp-validation-for="RecentJourney.Video3URL"></span>
+        </div>
+    </div>
+</div>

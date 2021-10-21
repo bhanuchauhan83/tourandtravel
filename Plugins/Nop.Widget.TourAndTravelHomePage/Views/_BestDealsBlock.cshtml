@@ -1,0 +1,95 @@
+﻿@model ConfigurationModel
+<div class="card-body">
+    <div class="form-group row">
+        <div class="col-md-3">
+            <nop-override-store-checkbox asp-for="BestDeals.SmallTitle_OverrideForStore" asp-input="BestDeals.SmallTitle" asp-store-scope="@Model.BestDeals.ActiveStoreScopeConfiguration" />
+            <nop-label asp-for="BestDeals.SmallTitle" />
+        </div>
+        <div class="col-md-9">
+            <nop-editor asp-for="BestDeals.SmallTitle" />
+            <span asp-validation-for="BestDeals.SmallTitle"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            <nop-override-store-checkbox asp-for="BestDeals.LargeTitle_OverrideForStore" asp-input="BestDeals.LargeTitle" asp-store-scope="@Model.BestDeals.ActiveStoreScopeConfiguration" />
+            <nop-label asp-for="BestDeals.LargeTitle" />
+        </div>
+        <div class="col-md-9">
+            <nop-editor asp-for="BestDeals.LargeTitle" />
+            <span asp-validation-for="BestDeals.LargeTitle"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            <nop-override-store-checkbox asp-for="BestDeals.LargeTitle_OverrideForStore" asp-input="BestDeals.Description" asp-store-scope="@Model.BestDeals.ActiveStoreScopeConfiguration" />
+            <nop-label asp-for="BestDeals.Description" />
+        </div>
+        <div class="col-md-9">
+            <nop-textarea asp-for="BestDeals.Description" />
+            <span asp-validation-for="BestDeals.Description"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            <nop-override-store-checkbox asp-for="BestDeals.KnowMoreLink_OverrideForStore" asp-input="BestDeals.KnowMoreLink" asp-store-scope="@Model.BestDeals.ActiveStoreScopeConfiguration" />
+            <nop-label asp-for="BestDeals.KnowMoreLink" />
+        </div>
+        <div class="col-md-9">
+            <nop-editor asp-for="BestDeals.KnowMoreLink" />
+            <span asp-validation-for="BestDeals.KnowMoreLink"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            <nop-override-store-checkbox asp-for="BestDeals.DiscountBannerId_OverrideForStore" asp-input="BestDeals.DiscountBannerId" asp-store-scope="@Model.BestDeals.ActiveStoreScopeConfiguration" />
+            <nop-label asp-for="BestDeals.DiscountBannerId" />
+        </div>
+        <div class="col-md-9">
+            <nop-editor asp-for="BestDeals.DiscountBannerId" />
+            <span asp-validation-for="BestDeals.DiscountBannerId"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            <nop-override-store-checkbox asp-for="BestDeals.Title1_OverrideForStore" asp-input="BestDeals.Title1" asp-store-scope="@Model.BestDeals.ActiveStoreScopeConfiguration" />
+            <nop-label asp-for="BestDeals.Title1" />
+        </div>
+        <div class="col-md-9">
+            <nop-editor asp-for="BestDeals.Title1" />
+            <span asp-validation-for="BestDeals.Title1"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            <nop-override-store-checkbox asp-for="BestDeals.Title2_OverrideForStore" asp-input="BestDeals.Title2" asp-store-scope="@Model.BestDeals.ActiveStoreScopeConfiguration" />
+            <nop-label asp-for="BestDeals.Title2" />
+        </div>
+        <div class="col-md-9">
+            <nop-editor asp-for="BestDeals.Title2" />
+            <span asp-validation-for="BestDeals.Title2"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            <nop-override-store-checkbox asp-for="BestDeals.DiscountBannerDescription_OverrideForStore" asp-input="BestDeals.DiscountBannerDescription" asp-store-scope="@Model.BestDeals.ActiveStoreScopeConfiguration" />
+            <nop-label asp-for="BestDeals.DiscountBannerDescription" />
+        </div>
+        <div class="col-md-9">
+            <nop-textarea asp-for="BestDeals.DiscountBannerDescription" />
+            <span asp-validation-for="BestDeals.DiscountBannerDescription"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            <nop-override-store-checkbox asp-for="BestDeals.Package_OverrideForStore" asp-input="BestDeals.Package" asp-store-scope="@Model.BestDeals.ActiveStoreScopeConfiguration" />
+            <nop-label asp-for="BestDeals.Package" />
+        </div>
+        <div class="col-md-9">
+            <nop-editor asp-for="BestDeals.Package" />
+            <span asp-validation-for="BestDeals.Package"></span>
+        </div>
+    </div>
+
+
+</div>

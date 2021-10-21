@@ -1,0 +1,33 @@
+﻿@model List<TestimonailModel>
+<script src="~/Plugins/TestimonialSlider/Content/js/flicker.min.js"></script>
+<link href="~/Plugins/TestimonialSlider/Content/css/flicker-style.css" rel="stylesheet" />
+<div class="testimonials-section">
+    @foreach (var testimonail in Model)
+    {
+    <div class="carousel-cell">
+        <div class="testimonial-card gallery-cell">
+            <div class="review">
+                <p>@testimonail.Description</p>
+            </div>
+            <div class="reviewer_details">
+                <div class="user_img">
+                    <img src="@testimonail.PictureURL" alt="@testimonail.UserName" title="@testimonail.UserName" />
+                </div>
+                <div class="user_info">
+                    <label>@testimonail.UserName</label>
+                    <span>@testimonail.Country</span>
+                </div>
+            </div>
+        </div>
+    </div>
+        
+    }
+
+</div>
+<script>
+    $('.testimonials-section').flickity({
+        // options
+        cellAlign: 'left',
+        contain: true
+    });
+</script>

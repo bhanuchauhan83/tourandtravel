@@ -1,0 +1,21 @@
+﻿@{
+    Layout = "_ColumnsOne";
+
+    //title
+    Html.AddTitleParts(T("PageTitle.PageNotFound").Text);
+    //page class
+    Html.AppendPageCssClassParts("html-not-found-page");
+}
+<div class="container">
+    <div class="page not-found-page">
+        <div class="Section_title column_card">
+            <h1>@T("PageTitle.PageNotFound")</h1>
+        </div>
+        <div class="error_img">
+            <img src="../Themes/TourAndTravels/Content/images/404.svg" alt="page not found" draggable="false"/>
+        </div>
+        <div class="page-body">
+            @await Component.InvokeAsync("TopicBlock", new { systemName = "PageNotFound" })
+        </div>
+    </div>
+</div>

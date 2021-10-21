@@ -1,0 +1,34 @@
+﻿@model RecentJourney
+
+@if (Model.RecentJourneyVideos.Count > 0)
+{
+    <section class="recent_journey">
+        <div class="container">
+            <section class="text-center">
+                <h3 class="sub_heading">@Model.SmallTitle</h3>
+                <h1 class="heading">@Model.LargeTitle</h1>
+                <div class="text_content">
+                    <p>@Model.Description</p>
+                </div>
+            </section>
+            <div class="video-section">
+                <div class="video-section-body">
+                    @foreach (var video in Model.RecentJourneyVideos)
+                    {
+                        <div class="video-card">
+                            <iframe class="journey_vids" src="@video.VideoURL"></iframe>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </section>
+    @if (!string.IsNullOrEmpty(Model.BackgroundImageURL))
+    {
+        <style>
+        .recent_journey {
+            background:url(@Model.BackgroundImageURL) no-repeat center cover !important;
+        }
+        </style>
+    }
+}

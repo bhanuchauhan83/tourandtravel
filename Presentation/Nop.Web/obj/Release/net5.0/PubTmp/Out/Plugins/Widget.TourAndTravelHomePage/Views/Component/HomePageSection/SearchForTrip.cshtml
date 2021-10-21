@@ -1,0 +1,35 @@
+﻿@model SearchForTripModel
+
+
+<section>
+        <div class="banner_form">
+            <section class="Search_form">
+                <div class="form_heading">
+                    <h3>@T("Nop.Widget.TourAndTravelHomePage.SearchForYourTrip")</h3>
+                </div>
+
+                <div class="Bannerform_outer">
+                    <div class="textbox">
+                        <input asp-for="City" class="form-control" placeholder="City" />
+                        <span asp-validation-for="City"></span>
+                    </div>
+                    <div class="textbox">
+                        <input asp-for="Departure" class="form-control" placeholder="Departure" />
+                        <span asp-validation-for="Departure"></span>
+                    </div>
+                    <div class="textbox">
+                        <input asp-for="Arrival" class="form-control" placeholder="Arrival" />
+                        <span asp-validation-for="Arrival"></span>
+                    </div>
+                    <div class="textbox">
+                        <input asp-for="Budget" class="form-control" placeholder="Budget" />
+                        <span asp-validation-for="Budget"></span>
+                    </div>
+                    <div class="text-center seach_btn">
+                        <input type="button" class="btn btn_blue" value="@T("Nop.Widget.TourAndTravelHomePage.Search")" />
+                    </div>
+                </div>
+            </section>
+        </div>
+</section>
+

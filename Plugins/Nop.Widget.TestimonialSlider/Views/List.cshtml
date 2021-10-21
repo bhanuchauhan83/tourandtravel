@@ -1,0 +1,68 @@
+﻿@model TestimonialSearchModel
+@{
+    Layout = "_AdminLayout";
+}
+
+<div class="content-header clearfix">
+    <h1 class="float-left">
+        @T("Admin.Catalog.Products")
+    </h1>
+    <div class="float-right">
+        <a asp-action="Create" class="btn btn-primary">
+            <i class="fas fa-plus-square"></i>
+            @T("Admin.Common.AddNew")
+        </a>
+    </div>
+</div>
+<section class="content">
+    <div class="container-fluid">
+        <div class="form-horizontal">
+            <div class="cards-group">
+
+                @await Html.PartialAsync("Table", new DataTablesModel
+           {
+               Name = "products-grid",
+               UrlRead = new DataUrl("AllTestimonials", "Testimonial", null),
+               Length = Model.PageSize,
+               LengthMenu = Model.AvailablePageSizes,
+               Filters = new List<FilterParameter>
+                                                 {
+                                                     new FilterParameter(nameof(Model.Country)),
+                                                     new FilterParameter(nameof(Model.UserName))
+                                                 },
+               ColumnCollection = new List<ColumnProperty>
+                                                 {
+
+                                                     new ColumnProperty(nameof(TestimonailModel.PictureURL))
+                                                     {
+                                                         Title = T("Nop.Widget.TestimonialSlider.PictureId").Text,
+                                                         Width = "100",
+                                                         Render = new RenderPicture()
+                                                     },
+                                                     new ColumnProperty(nameof(TestimonailModel.UserName))
+                                                     {
+                                                         Title = T("Nop.Widget.TestimonialSlider.UserName").Text
+                                                     },
+                                                     new ColumnProperty(nameof(TestimonailModel.Country))
+                                                     {
+                                                         Title = T("Nop.Widget.TestimonialSlider.Country").Text,
+                                                         Width = "100"
+                                                     },
+                                                     new ColumnProperty(nameof(TestimonailModel.Description))
+                                                     {
+                                                         Title = T("Nop.Widget.TestimonialSlider.Description").Text
+                                                     },
+                                                     new ColumnProperty(nameof(TestimonailModel.Id))
+                                                     {
+                                                         Title = T("Admin.Common.Edit").Text,
+                                                         Width = "80",
+                                                         ClassName =  NopColumnClassDefaults.Button,
+                                                         Render = new RenderButtonEdit(new DataUrl("Edit"))
+                                                     }
+                                                 }
+           })
+            </div>
+        </div>
+    </div>
+</section>
+

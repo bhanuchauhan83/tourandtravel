@@ -1,0 +1,82 @@
+﻿@{
+    Layout = "_Root.Head";
+}
+@await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.BodyStartHtmlTagAfter })
+@await Html.PartialAsync("_Notifications")
+@await Html.PartialAsync("_JavaScriptDisabledWarning")
+@await Html.PartialAsync("_OldInternetExplorerWarning")
+@using Nop.Core.Infrastructure
+@using Microsoft.AspNetCore.Http;
+@{
+    var httpContext = EngineContext.Current.Resolve<IHttpContextAccessor>();
+    var Route = httpContext.HttpContext.Request.RouteValues;
+    var controllerName = Route["controller"].ToString();
+    var className = "header-menu Header_menu_2";
+    if (controllerName.ToLower() == "home")
+        className = "header-menu";
+}
+<div class="master-wrapper-page">
+    @await Component.InvokeAsync("AdminHeaderLinks")
+
+    <script asp-location="Footer">
+        var localized_data = {
+            AjaxCartFailure: "@T("AjaxCart.Failure")"
+        };
+        AjaxCart.init(false, '.header-links .cart-qty', '.header-links .wishlist-qty', '#flyout-cart', localized_data);
+    </script>
+    <section class="top_HeaderMenu">
+        <div class="upperHeader_outer">
+            <div class="container upperHeader_inner">
+                <div class="header_contact_link">
+                    <ul>
+                        <li><h5><i class="fas fa-phone-alt"></i>(805) 452-7208</h5></li>
+                        <li><h5><i class="fas fa-envelope"></i>info@example.com</h5></li>
+                    </ul>
+                </div>
+
+                <div class="header_social_links">
+                    <ul>
+                        <li>
+                            <a href="#!"><i class="fab fa-facebook-f"></i></a>
+                        </li>
+                        <li>
+                            <a href="#!"><i class="fab fa-twitter"></i></a>
+                        </li>
+                        <li>
+                            <a href="#!"><i class="fab fa-linkedin-in"></i></a>
+                        </li>
+                        <li>
+                            <a href="#!"><i class="fas fa-share"></i></a>
+                        </li>
+                        <li>
+                            @await Component.InvokeAsync("HeaderLinks")
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="@className">
+            <div class="left-section">
+                @await Html.PartialAsync("_Header")
+            </div>
+            <div class="right-section">
+                @await Component.InvokeAsync("TopMenu")
+            </div>
+        </div>
+    </section>
+    <div class="master-wrapper-content">
+        @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.ContentBefore })
+
+        @if (IsSectionDefined("Breadcrumb"))
+        {
+            @RenderSection("Breadcrumb")
+        }
+        <div class="master-column-wrapper">
+            @RenderBody()
+        </div>
+        @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.ContentAfter })
+    </div>
+    @await Component.InvokeAsync("Footer")
+</div>
+@await Component.InvokeAsync("EuCookieLaw")
+@await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.BodyEndHtmlTagBefore })

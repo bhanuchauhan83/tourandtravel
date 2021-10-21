@@ -1,0 +1,29 @@
+﻿@model TestimonailModel
+@{
+    Layout = "_AdminLayout";
+}
+<form asp-controller="Testimonial" asp-action="Create" method="post" id="testimonial-form">
+    <div class="content-header clearfix">
+        <h1 class="float-left">
+            @T("Admin.Catalog.Products")
+        </h1>
+        <div class="float-right">
+            <button type="submit" name="save" class="btn btn-primary">
+                <i class="far fa-save"></i>
+                @T("Admin.Common.Save")
+            </button>          
+        </div>
+
+    </div>
+    <section class="content">
+        <div class="container-fluid">
+            <div class="form-horizontal">
+                <div class="cards-group">
+
+                    @await Html.PartialAsync("~/Plugins/TestimonialSlider/Views/_CreateOrUpdate.cshtml", Model)
+
+                </div>
+            </div>
+        </div>
+    </section>
+</form>

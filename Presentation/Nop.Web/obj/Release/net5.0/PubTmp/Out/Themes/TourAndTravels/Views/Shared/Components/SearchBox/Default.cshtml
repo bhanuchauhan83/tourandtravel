@@ -1,0 +1,208 @@
+﻿@model SearchBoxModel
+
+<form asp-route="ProductSearch" method="get" id="small-search-box-form">
+    @if (Model.ShowSearchBox)
+    {
+        <section>
+            <div class="banner_form">
+                <section class="Search_form">
+                    <div class="form_heading">
+                        <h3>@T("Nop.Widget.TourAndTravelHomePage.SearchForYourTrip")</h3>
+                    </div>
+                    <div class="Bannerform_outer">
+                        <div class="textbox">
+                            <input type="text" class="form-control" id="from" name="f" autocomplete="off" placeholder="From" aria-label="@T("Search.SearchBox.Text.Label")" />
+                            <i class="fas fa-plane-departure icon_plane"></i>
+                        </div>
+                        <div class="textbox">
+                            <input type="text" class="form-control" id="destination" autocomplete="off" name="q" placeholder="Destination" aria-label="@T("Search.SearchBox.Text.Label")" />
+                            <i class="fas fa-plane-arrival icon_plane"></i>
+                        </div>
+                        <div class="textbox">
+                            <input type="text" readonly class="form-control" id="guestInfo" autocomplete="off" name="p" placeholder="Persons" aria-label="@T("Search.SearchBox.Text.Label")" />
+                            <i class="fas fa-user-friends icon_plane"></i>
+                            <div class="guest-info" style="display:none">
+                                <div class="roomsGuests">
+                                    <div class="roomsGuestsTop">
+                                        <div class="addRoomRow">
+                                            <div class="addRoomLeft">
+                                                <p class="darkText font16 latoBlack capText">Room 1</p>
+                                                <button type="button" onclick="removeRoom(this)">&times;</button>
+                                            </div>
+                                            <div class="addRoomRight">
+                                                <div class="addRooomDetails">
+                                                    <div>
+                                                        <label class="latoBold font12 grayText appendBottom10">ADULTS (12y +)</label>
+                                                        <ul class="guestCounter adult-count font12 darkText">
+                                                            <li class="" value="1" onclick="changeCount(this)">1</li>
+                                                            <li class="selected" value="2" onclick="changeCount(this)">2</li>
+                                                            <li class="" value="3" onclick="changeCount(this)">3</li>
+                                                        </ul>
+                                                    </div>
+                                                    <div>
+                                                        <label class="latoBold font12 grayText appendBottom10">CHILDREN (0y - 11y )</label>
+                                                        <ul class="guestCounter children-count font12 darkText">
+                                                            <li class="selected" value="0" onclick="changeCount(this)">0</li>
+                                                            <li class="" value="1" onclick="changeCount(this)">1</li>
+                                                            <li class="" value="2" onclick="changeCount(this)">2</li>
+                                                            <li class="" value="3" onclick="changeCount(this)">3</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="roomsGuestsBottom">
+                                        @*<button type="button" class="btnAddRoom">+ add another room</button>*@
+                                        <button type="button" class="primaryBtn btnApply btn_blue">apply</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="textbox">
+                            <input type="text" data-date-format="mm/dd/yyyy" placeholder="mm/dd/yyyy" class="form-control" min="@DateTime.UtcNow.ToString("dd-mm-yyyy")" id="datepicker" onkeydown="return false"  name="d" aria-label="@T("Search.SearchBox.Text.Label")" />
+                            <i class="far fa-calendar-alt icon_calender"></i>
+                        </div>
+                        @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.SearchBoxBeforeSearchButton })
+                        <div class="text-center seach_btn">
+                            <button type="submit" class="btn btn_blue">@T("Nop.Widget.TourAndTravelHomePage.Search")</button>
+                        </div>
+                        @if (Model.SearchTermMinimumLength > 0)
+                        {
+                            <script asp-location="Footer">
+                $("#small-search-box-form").on("submit", function(event) {
+                    if ($("#destination").val() == "" ) {
+                        alert('@Html.Raw(JavaScriptEncoder.Default.Encode(T("Search.EnterSearchTerms").Text))');
+                        $("#destination").focus();
+                        event.preventDefault();
+                    }
+                });
+                            </script>
+                        }
+                    </div>
+                </section>
+            </div>
+        </section>
+        @if (Model.AutoCompleteEnabled)
+        {
+            <script asp-location="Footer">
+                $(document).ready(function() {
+                    var showLinkToResultSearch;
+                    var searchText;
+                    $('#destination').autocomplete({
+                            delay: 500,
+                            minLength: @(Model.SearchTermMinimumLength.ToString()),
+                            source: '@(Url.RouteUrl("PlaceSearchAutoComplete"))',
+                            appendTo: '.search-box',
+                        select: function (event, ui) {
+                            debugger;
+                            console.log(ui);
+                                $("#destination").val(ui.item.label);
+
+                                return false;
+                        },
+                        //append link to the end of list
+                        open: function (event, ui) {
+                            console.log(ui);
+                            //display link to search page
+                            if (showLinkToResultSearch) {
+                                searchText = document.getElementById("destination").value;
+                                $(".ui-autocomplete").append("<li class=\"ui-menu-item\" role=\"presentation\"><a href=\"/search?q=" + searchText + "\">@T("Search.SearchBox.SearchPageLink")</a></li>");
+                            }
+                        }
+                    })
+                        .data("ui-autocomplete")._renderItem = function (ul, item) {
+
+                            var t = item.label;
+
+                        showLinkToResultSearch = item.showlinktoresultsearch;
+                        //html encode
+                            t = htmlEncode(t);
+                            console.log(t);
+                        return $("<li></li>")
+                            .data("item.autocomplete", item)
+                            .append("<a>@(Model.ShowProductImagesInSearchAutoComplete ? Html.Raw("<img src='\" + item.productpictureurl + \"'>") : null)<span>" + t + "</span></a>")
+                            .appendTo(ul);
+                        };
+                    $('#from').autocomplete({
+                            delay: 500,
+                            minLength: @(Model.SearchTermMinimumLength.ToString()),
+                            source: '@(Url.RouteUrl("PlaceSearchAutoComplete"))',
+                            appendTo: '.search-box',
+                        select: function (event, ui) {
+                            debugger;
+                            console.log(ui);
+                            $("#from").val(ui.item.label);
+                                return false;
+                        },
+                        //append link to the end of list
+                        open: function (event, ui) {
+                            console.log(ui);
+                            //display link to search page
+                            if (showLinkToResultSearch) {
+                                searchText = document.getElementById("from").value;
+                                $(".ui-autocomplete").append("<li class=\"ui-menu-item\" role=\"presentation\"><a href=\"/search?q=" + searchText + "\">@T("Search.SearchBox.SearchPageLink")</a></li>");
+                            }
+                        }
+                    })
+                        .data("ui-autocomplete")._renderItem = function (ul, item) {
+
+                            var t = item.label;
+
+                        showLinkToResultSearch = item.showlinktoresultsearch;
+                        //html encode
+                            t = htmlEncode(t);
+                            console.log(t);
+                        return $("<li></li>")
+                            .data("item.autocomplete", item)
+                            .append("<a>@(Model.ShowProductImagesInSearchAutoComplete ? Html.Raw("<img src='\" + item.productpictureurl + \"'>") : null)<span>" + t + "</span></a>")
+                            .appendTo(ul);
+                    };
+                });
+            </script>
+        }
+        @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.SearchBox })
+    }
+</form>
+<script>
+    var roomNumber = 1;
+    $('#datepicker').datepicker({
+        format: 'mm/dd/yyyy',
+        startDate: '-3d',
+        minDate:'-0d'
+    });
+
+    function removeRoom(v) {
+        if ($('.addRoomRow').length > 1) {
+            $(v).parents('.addRoomRow').first().remove();
+            roomNumber--;
+        } else {
+            $('.guest-info').toggle();
+        }
+       
+    }
+
+    $('#guestInfo').on('click', function () {
+        $('.guest-info').toggle();
+    })   
+    function changeCount(v) {
+        $(v).parent('ul').children().removeClass('selected');
+        $(v).addClass('selected');
+    }
+    //$('.btnAddRoom').on('click', function () {
+    //    roomNumber++;
+    //    $('.guest-info .addRoomRow').last().after("<div class='addRoomRow'>  <div class='addRoomLeft'><p class= 'darkText font16 latoBlack capText'> Room " + roomNumber + "</p><button type='button' onclick='removeRoom(this)'>&times;</button></div >" + $('.guest-info .addRoomRow .addRoomRight').html() + "</div>");
+    //})
+    $('.btnApply').on('click', function () {
+        var adultCount = 0;
+        var childCount = 0;
+        $('.guest-info .adult-count li.selected').each(function () {           
+            adultCount += parseInt($(this).attr('value'));
+        })
+        $('.guest-info .children-count li.selected').each(function () {
+            childCount += parseInt($(this).attr('value'));
+        })
+        $('#guestInfo').val(adultCount + ' Adults, ' + childCount + ' Children');
+        $('.guest-info').toggle();
+    })
+</script>

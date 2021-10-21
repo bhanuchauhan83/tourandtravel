@@ -1,0 +1,80 @@
+﻿@model ShoppingCartModel
+@using Nop.Core
+@using Nop.Core.Domain.Orders
+@using Nop.Core.Domain.Tax
+@inject IWebHelper webHelper
+@inject IWorkContext workContext
+@inject OrderSettings orderSettings
+@inject IProductService productService
+@using Nop.Web.Models.ShoppingCart
+@using Nop.Services.Catalog
+@using Nop.Web.Extensions
+<div class="order-summary-content">
+    @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.OrderSummaryContentBefore })
+    @await Html.PartialAsync("_OrderReviewData", Model.OrderReviewData)
+    @if (Model.Items.Count > 0)
+    {
+        if (Model.Warnings.Count > 0)
+        {
+            <div class="message-error">
+                <ul>
+                    @foreach (var warning in Model.Warnings)
+                    {
+                        <li>@warning</li>
+                    }
+                </ul>
+            </div>
+        }
+        @*we add enctype = "multipart/form-data" because "File upload" attribute control type requires it*@
+
+
+        foreach (var item in Model.Items)
+        {
+            var productInfo = await productService.GetProductByIdAsync(item.ProductId);
+            <div class="package_review_page">
+                <div class="packageInfo column_card">
+                    <div class="packTitle subHeading">
+                        <h3>@item.ProductName</h3>
+                        <label>@await Component.InvokeAsync("DayNight", new { additionalData = item.ProductId })</label>
+                    </div>
+                    <div class="contentText">
+                        <p>@productInfo.ShortDescription</p>
+                    </div>
+                    @await Component.InvokeAsync("PackagePoints", new { additionalData = item.ProductId })
+
+                </div>
+            </div>
+            <div class="column_card remove_padding">
+                <div class="subHeading itineary_header column_header">
+                    <h3>package itinerary</h3>
+                    @*<button type="button"><i class="fas fa-pencil-alt"></i></button>*@
+                </div>
+                <div class="Pack_Description contentText">
+                    @Html.Raw(productInfo.FullDescription)
+                </div>
+            </div>
+
+            <div class="hotel_details">
+                @await Component.InvokeAsync("HotelDetails", new { additionalData = item.ProductId })
+            </div>
+
+        }
+        @if (Model.IsEditable)
+        {
+            @await Html.PartialAsync("_CheckoutAttributes", Model)
+        }
+        @await Component.InvokeAsync("SelectedCheckoutAttributes")
+
+        @if (Model.IsEditable)
+        {
+            @await Component.InvokeAsync("CrossSellProducts")
+        }
+    }
+    else
+    {
+        <div class="no-data">
+            @T("ShoppingCart.CartIsEmpty")
+        </div>
+    }
+    @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.OrderSummaryContentAfter })
+</div>
