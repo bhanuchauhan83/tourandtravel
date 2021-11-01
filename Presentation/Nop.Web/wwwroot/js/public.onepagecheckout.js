@@ -194,8 +194,8 @@ var Billing = {
   },
 
   initializeCountrySelect: function() {
-    if ($('#opc-billing').has('select[data-trigger="country-select"]')) {
-      $('#opc-billing select[data-trigger="country-select"]').countrySelect();
+      if ($('#opc-billing,#opc-contact_info').has('select[data-trigger="country-select"]')) {
+          $('#opc-billing select[data-trigger="country-select"],#opc-contact_info select[data-trigger="country-select"]').countrySelect();
     }
   },
 

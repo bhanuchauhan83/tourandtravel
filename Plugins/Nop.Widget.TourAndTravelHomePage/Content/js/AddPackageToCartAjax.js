@@ -45,8 +45,7 @@ var PersonalInfo = {
         this.form = form;
         this.url = url;
     },
-    save: function () {
-        debugger;
+    save: function () {        
         if (this.checkifAllValid()) {
             $.ajax({
                 cache: false,
@@ -86,8 +85,9 @@ var PersonalInfo = {
 
             return false;
         }
-
+        
         Checkout.setStepResponse(response);
+        Billing.initializeCountrySelect();
     },
 
 }
@@ -121,7 +121,7 @@ var ContactInfo = {
 
             return false;
         }
-
+        
         Checkout.setStepResponse(response);
     },
 }
