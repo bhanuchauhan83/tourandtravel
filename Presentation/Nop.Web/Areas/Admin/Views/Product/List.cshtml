@@ -157,14 +157,14 @@
                                                 <nop-select asp-for="SearchWarehouseId" asp-items="Model.AvailableWarehouses" />
                                             </div>
                                         </div>
-                                        <div class="form-group row">
+                                        @*<div class="form-group row">
                                             <div class="col-md-4">
                                                 <nop-label asp-for="SearchProductTypeId" />
                                             </div>
                                             <div class="col-md-8">
                                                 <nop-select asp-for="SearchProductTypeId" asp-items="Model.AvailableProductTypes" />
                                             </div>
-                                        </div>
+                                        </div>*@
                                         <div class="form-group row">
                                             <div class="col-md-4">
                                                 <nop-label asp-for="SearchPublishedId" />
@@ -173,7 +173,7 @@
                                                 <nop-select asp-for="SearchPublishedId" asp-items="Model.AvailablePublishedOptions" />
                                             </div>
                                         </div>
-                                        <div class="form-group row">
+                                        @*<div class="form-group row">
                                             <div class="col-md-4">
                                                 <nop-label asp-for="GoDirectlyToSku" />
                                             </div>
@@ -187,7 +187,7 @@
                                                     </span>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div>*@
                                     </div>
                                 </div>
                                 <div class="row">
@@ -244,20 +244,20 @@
                                       {
                                           Title = T("Admin.Catalog.Products.Fields.Name").Text
                                       },
-                                      new ColumnProperty(nameof(ProductModel.Sku))
-                                      {
-                                          Title = T("Admin.Catalog.Products.Fields.Sku").Text,
-                                          Width = "100"
-                                      },
+                                      //new ColumnProperty(nameof(ProductModel.Sku))
+                                      //{
+                                      //    Title = T("Admin.Catalog.Products.Fields.Sku").Text,
+                                      //    Width = "100"
+                                      //},
                                       new ColumnProperty(nameof(ProductModel.Price))
                                       {
                                           Title = T("Admin.Catalog.Products.Fields.Price").Text,
                                           Render = new RenderCustom("renderColumnPrice")
                                       },
-                                      new ColumnProperty(nameof(ProductModel.StockQuantityStr))
-                                      {
-                                          Title = T("Admin.Catalog.Products.Fields.StockQuantity").Text
-                                      },                                      
+                                      //new ColumnProperty(nameof(ProductModel.StockQuantityStr))
+                                      //{
+                                      //    Title = T("Admin.Catalog.Products.Fields.StockQuantity").Text
+                                      //},
                                       new ColumnProperty(nameof(ProductModel.Published))
                                       {
                                           Title = T("Admin.Catalog.Products.Fields.Published").Text,
