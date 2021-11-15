@@ -45,7 +45,7 @@ var PersonalInfo = {
         this.form = form;
         this.url = url;
     },
-    save: function () {        
+    save: function () {
         if (this.checkifAllValid()) {
             $.ajax({
                 cache: false,
@@ -57,7 +57,22 @@ var PersonalInfo = {
                 error: this.ajaxFailure
             });
         } else {
-            alert("fill all required field")
+            var alertShown = false;
+            $('#traveller-personal-info input').each(function () {              
+                var max = $(this).attr('max');
+                var min = $(this).attr('min');
+                if (!alertShown && max && min) {                  
+                    if (parseInt($(this).val()) > parseInt(max)) {
+                        alertShown = true;
+                        alert("Invalid Age max age is " + max + "");
+                    } else if (parseInt($(this).val()) < parseInt(min)) {
+                        alertShown = true;
+                        alert("Invalid Age min age is " + min + "");
+                    }
+                }
+            });
+            if (!alertShown)
+                alert("fill all required field")
         }
 
     },
@@ -75,7 +90,7 @@ var PersonalInfo = {
         return valid;
     },
     nextStep: function (response) {
-        debugger;
+      
         if (response.error) {
             if (typeof response.message === 'string') {
                 alert(response.message);
@@ -85,7 +100,7 @@ var PersonalInfo = {
 
             return false;
         }
-        
+
         Checkout.setStepResponse(response);
         Billing.initializeCountrySelect();
     },
@@ -110,8 +125,7 @@ var ContactInfo = {
             error: this.ajaxFailure
         });
     },
-    nextStep: function (response) {
-        debugger;
+    nextStep: function (response) {       
         if (response.error) {
             if (typeof response.message === 'string') {
                 alert(response.message);
@@ -121,7 +135,7 @@ var ContactInfo = {
 
             return false;
         }
-        
+
         Checkout.setStepResponse(response);
     },
 }
