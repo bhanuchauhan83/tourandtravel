@@ -1252,8 +1252,8 @@ label, label + * {
 
     .footer-block .title {
         margin: 0 0 1px;
-        background: #4ab2f1 url('../images/toggle-white.png') right center no-repeat;
-        padding: 10px 15px;
+        background: url('../images/toggle-white.png') right center no-repeat;
+        padding: 10px 0px;
         font-size: 20px;
         color: #fff;
         cursor: pointer;
@@ -1270,11 +1270,10 @@ label, label + * {
     .footer-block .list {
         display: none;
         margin: 0 0 20px;
-        background-color: #fff;
-        padding: 10px 15px;
+       /* padding: 10px 15px;*/
     }
 
-        .footer-block .list a {
+        .footer-block .list a{
             display: block;
             padding: 10px 15px;
             line-height: 20px;
@@ -1282,9 +1281,20 @@ label, label + * {
             font-family: 'Roboto-regular';
             text-transform: capitalize;
         }
+.Contact-Info a {
+    display: block;
+    padding: 6px 0px;
+    line-height: 20px;
+    text-align:left;
+    color: #fff;
+    font-family: 'Roboto-regular';
+    text-transform: capitalize;
+}
 
             .footer-block .list a:hover,
-            .footer-block .list a:focus {
+            .footer-block .list a:focus,
+            .Contact-Info a:hover,
+            .Contact-Info a:focus {
                 color: #009E25;
             }
 
@@ -1298,12 +1308,16 @@ label, label + * {
         background: none;
         color: #444;
         cursor: auto;
+        padding:0;
+        overflow:hidden;
+        word-break:break-word;
+        text-align:left;
     }
 
     .follow-us .social ul {
-        margin: 0 0 30px;
+       /* margin: 0 0 30px;
         border-bottom: 1px solid #ddd;
-        padding: 0 0 30px;
+        padding: 0 0 30px;*/
         font-size: 0;
     }
 
@@ -1341,8 +1355,11 @@ label, label + * {
     }
 
 .newsletter-email {
-    display: inline-block;
+    display: flex;
+    flex-direction:column;
+    align-items:center;
     overflow: hidden;
+    width:100%;
 }
 
     .newsletter-email:focus-within {
@@ -1359,6 +1376,8 @@ label, label + * {
         color: #fff;
         padding: 12px 20px;
         min-width: 500px;
+        max-width:500px;
+        width:100%;
         margin-right: 30px;
     }
 
@@ -10015,6 +10034,10 @@ CUSTOM STYLES SECTION BEGIN
     .home-page-polls li {
         min-width: 100px;
     }
+    .newsletter-email{
+        flex-direction:row;
+        justify-content:center;
+    }
 
     .upperHeader_inner {
         flex-direction: row;
@@ -11396,11 +11419,13 @@ CUSTOM STYLES SECTION BEGIN
         position: relative;
         width: 980px;
         padding: 25px 5px;
+        display:flex;
+        justify-content:space-between;
     }
 
         .footer-lower:after {
             content: "";
-            display: block;
+            display: none;
             clear: both;
         }
 
